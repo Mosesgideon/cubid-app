@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "373140174241",
+    "project_id": "cubidchatapp",
+    "storage_bucket": "cubidchatapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373140174241:android:2c8bcb039b9939e5f207e0",
+        "android_client_info": {
+          "package_name": "com.example.social_media"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "373140174241-g09a40trk4pjgivg34q83n86qmc0qjef.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn_Ny1_Yxn1okXmKzAisniqp5t9qtM94w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "373140174241-g09a40trk4pjgivg34q83n86qmc0qjef.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

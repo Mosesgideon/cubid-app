@@ -98,7 +98,7 @@ class ChatWidgets {
             ),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 250),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Container(
@@ -115,13 +115,13 @@ class ChatWidgets {
           ),
           if (check)
             const CircleAvatar(
+              backgroundColor: Colors.grey,
+              radius: 10,
               child: Icon(
                 Icons.person,
                 size: 13,
                 color: Colors.white,
               ),
-              backgroundColor: Colors.grey,
-              radius: 10,
             ),
           if (!check) const Spacer(),
         ],

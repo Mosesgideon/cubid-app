@@ -62,53 +62,53 @@ class ChatServices extends ChangeNotifier {
         .snapshots();
   }
 
-  Stream<QuerySnapshot> getNotifications(String senderId, String recieverId)  {
-    List<String> roomId = [senderId, recieverId];
-    roomId.sort();
-    String notificationId = roomId.join("_");
-
-    log(notificationId);
-
-    return firestore
-        .collection("notifications")
-        .doc(notificationId)
-        .collection("messages")
-        .orderBy('time', descending: false)
-        .snapshots();
-  }
-  Future<void> sendNotifications( String recieverid,String message,) async {
-
-
-    //get user info
-    final String currentUserId = firebaseauth.currentUser!.uid;
-    final String currentUseremail = firebaseauth.currentUser!.email.toString();
-    final Timestamp timestamp = Timestamp.now();
-    final DateTime dateTime = DateTime.now();
-
-    //get message
-    Message newmessage  = Message(
-        senderID: currentUserId,
-        senderEmail: currentUseremail,
-        recieverID: recieverid,
-        message: message,
-        time: dateTime.toIso8601String().toString());
-
-    //construct a room id for current user and reciever
-    List<String> idcollection = [currentUserId, recieverid];
-    idcollection.sort();
-    //combine the two to a single string
-    String notificationId = idcollection.join("_");
-
-    log(notificationId);
-
-
-    //add new message to database
-    await firestore
-        .collection("notifications")
-        .doc(notificationId)
-        .collection("messages").add(newmessage.toMap());
-
-  }
+  // Stream<QuerySnapshot> getNotifications(String senderId, String recieverId)  {
+  //   List<String> roomId = [senderId, recieverId];
+  //   roomId.sort();
+  //   String notificationId = roomId.join("_");
+  //
+  //   log(notificationId);
+  //
+  //   return firestore
+  //       .collection("notifications")
+  //       .doc(notificationId)
+  //       .collection("messages")
+  //       .orderBy('time', descending: false)
+  //       .snapshots();
+  // }
+  // Future<void> sendNotifications( String recieverid,String message,) async {
+  //
+  //
+  //   //get user info
+  //   final String currentUserId = firebaseauth.currentUser!.uid;
+  //   final String currentUseremail = firebaseauth.currentUser!.email.toString();
+  //   final Timestamp timestamp = Timestamp.now();
+  //   final DateTime dateTime = DateTime.now();
+  //
+  //   //get message
+  //   Message newmessage  = Message(
+  //       senderID: currentUserId,
+  //       senderEmail: currentUseremail,
+  //       recieverID: recieverid,
+  //       message: message,
+  //       time: dateTime.toIso8601String().toString());
+  //
+  //   //construct a room id for current user and reciever
+  //   List<String> idcollection = [currentUserId, recieverid];
+  //   idcollection.sort();
+  //   //combine the two to a single string
+  //   String notificationId = idcollection.join("_");
+  //
+  //   log(notificationId);
+  //
+  //
+  //   //add new message to database
+  //   await firestore
+  //       .collection("notifications")
+  //       .doc(notificationId)
+  //       .collection("messages").add(newmessage.toMap());
+  //
+  // }
 }
 
 

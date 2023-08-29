@@ -55,10 +55,11 @@ dependencies:
   flutter_svg: ^2.0.7
   shimmer_animation: ^2.1.0+1
   intl: ^0.18.1
-  firebase_messaging: ^14.6.5
+  firebase_messaging: ^14.6.7
   firebase_core: ^2.15.0
   either_dart: ^1.0.0
   timeago: ^3.5.0
+  flutter_local_notifications: ^15.1.1
 
 
 dev_dependencies:

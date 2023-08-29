@@ -7,12 +7,14 @@ import 'package:social_media/features/home_screen/presentation/homeScreen.dart';
 import 'package:social_media/features/onboarding_screen/screens/splash_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media/helpers/api_helper.dart';
+import 'package:social_media/services/push_notification_services.dart';
 
 import 'features/authentication/presentation/screens/verify_email_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await PushNotificationService.inititialize();
   // await firebaseApi().notifications();
   runApp(MyApp());
 }

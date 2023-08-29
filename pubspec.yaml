@@ -58,6 +58,7 @@ dependencies:
   firebase_messaging: ^14.6.5
   firebase_core: ^2.15.0
   either_dart: ^1.0.0
+  timeago: ^3.5.0
 
 
 dev_dependencies:

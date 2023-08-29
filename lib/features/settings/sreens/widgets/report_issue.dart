@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media/features/authentication/presentation/widgets/custombutton_widgets.dart';
 import 'package:social_media/features/authentication/presentation/widgets/textfield_widget.dart';
+
 class ReportIssue extends StatefulWidget {
   const ReportIssue({Key? key}) : super(key: key);
 
@@ -9,15 +11,24 @@ class ReportIssue extends StatefulWidget {
 }
 
 class _ReportIssueState extends State<ReportIssue> {
+  final reportcontroller = TextEditingController();
+  final store = FirebaseFirestore.instance;
+  bool isloading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Theme
+            .of(context)
+            .scaffoldBackgroundColor,
         elevation: 0,
-        title:  Text(
+        title: Text(
           "Report Issue",
-          style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
+          style: TextStyle(color: Theme
+              .of(context)
+              .colorScheme
+              .onBackground),
         ),
       ),
       body: Padding(
@@ -27,26 +38,27 @@ class _ReportIssueState extends State<ReportIssue> {
           mainAxisSize: MainAxisSize.max,
           children: [
 
-            const Expanded(
+            Expanded(
               flex: 1,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   SizedBox(
                     child: OutlinedFormField(
 
                       maxLine: 7,
+                      controller: reportcontroller,
                       hint: 'Drop your report',
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
 
@@ -60,17 +72,24 @@ class _ReportIssueState extends State<ReportIssue> {
               child: Column(
                 children: [
                   CustomButton(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: const Text("Send Report"), onPressed: () {}),
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: isloading ? const SizedBox(height: 25, width: 25,
+                        child: CircularProgressIndicator(),) : Text(
+                          "Send Report"), onPressed: () {
+                    sendReport();
+                  }),
                   const SizedBox(
                     height: 10,
                   ),
                   Center(
                     child: Text(
-                      " ",
+                      "report will be reviewed ",
                       style: TextStyle(
                         fontSize: 12,
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Theme
+                            .of(context)
+                            .colorScheme
+                            .onBackground,
                       ),
                     ),
                   ),
@@ -85,4 +104,45 @@ class _ReportIssueState extends State<ReportIssue> {
       ),
     );
   }
+
+  Future<void> sendReport() async {
+    CollectionReference report = FirebaseFirestore.instance.collection(
+        'reports');
+
+    CollectionReference abuse =
+    FirebaseFirestore.instance.collection('report');
+
+    // Call the user's CollectionReference to add a new report
+    return await report
+        .add({
+      'abusetype': reportcontroller,
+
+    })
+
+        .then((value) => print("report added"))
+        .catchError((error) =>
+    {
+      setState(() {
+        isloading = false;
+      }),
+      print('failed')
+    }
+    );
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -55,16 +55,26 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-
                 children: [
-                  const SizedBox(height: 40,),
-                  const Text('Verification email have been sent'),
-                  const SizedBox(height: 20,),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Text(
+                    'Verification email have been sent',
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onBackground),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   CustomButton(
-                    isExpanded: false,
-                      child:  const Row(
-                        children: [Icon(Icons.email_outlined),
-                          SizedBox(width: 10,),
+                      isExpanded: false,
+                      child: const Row(
+                        children: [
+                          Icon(Icons.email_outlined),
+                          SizedBox(
+                            width: 10,
+                          ),
                           Text('Resend Email'),
                         ],
                       ),
@@ -81,9 +91,9 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
     try {
       final user = FirebaseAuth.instance.currentUser;
       await user?.sendEmailVerification();
-      timer = Timer(Duration(seconds: 2), () => checkEmail());
+      timer = Timer(const Duration(seconds: 2), () => checkEmail());
       setState(() => resendverified = false);
-      await Future.delayed(Duration(seconds: 5));
+      await Future.delayed(const Duration(seconds: 5));
       setState(() => resendverified = true);
     } on Exception catch (e) {
       print(e.toString());

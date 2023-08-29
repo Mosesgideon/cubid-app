@@ -8,7 +8,6 @@ import 'package:social_media/features/chats_tab/presentations/widgets/styles.dar
 import 'package:social_media/features/menu_tab/presentations/screens/privat_userpost.dart';
 import 'package:social_media/features/menu_tab/presentations/widgets/menu_widget.dart';
 
-import '../../../chats_tab/presentations/widgets/chat_list.dart';
 
 
 class UserMenu extends StatefulWidget {
@@ -116,6 +115,7 @@ class _UserMenuState extends State<UserMenu> {
                                                           BorderRadius.circular(
                                                               25),
                                                       image: DecorationImage(
+                                                        fit: BoxFit.cover,
                                                           image: NetworkImage(
                                                               snapshot.data!
                                                                   .docs[index]

@@ -2,14 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:social_media/features/app_users/presentations/screens/app_users.dart';
 import 'package:social_media/features/chat_page/presentation/screens/chat_list/chat_page.dart';
-import 'package:social_media/features/chats_tab/presentations/widgets/chat_list.dart';
-import 'package:social_media/features/help/presentations/screens/help.dart';
-import 'package:social_media/features/home_screen/presentation/drawermenu.dart';
 import 'package:social_media/features/menu_tab/presentations/screens/menu.dart';
 import 'package:social_media/features/notifications/presentations/screens/notifications.dart';
-import 'package:social_media/features/profile/presentation/screens/profile_page.dart';
 import 'package:social_media/features/settings/sreens/presentations/settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {

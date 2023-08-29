@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:phone_form_field/phone_form_field.dart';
-import 'package:social_media/features/authentication/bloc/auth_bloc.dart';
+import 'package:social_media/features/authentication/auth_bloc/auth_bloc.dart';
 import 'package:social_media/features/authentication/data/repository/auth_repository_impl.dart';
 import 'package:social_media/features/authentication/presentation/screens/otp_verify.dart';
 import 'package:social_media/features/authentication/presentation/widgets/custombutton_widgets.dart';

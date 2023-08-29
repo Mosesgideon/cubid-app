@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media/features/authentication/presentation/widgets/custombutton_widgets.dart';
 import 'package:social_media/features/authentication/presentation/widgets/textfield_widget.dart';
@@ -10,13 +11,16 @@ class FeedBack extends StatefulWidget {
 }
 
 class _FeedBackState extends State<FeedBack> {
+  final feedbackcontroller = TextEditingController();
+  bool isloading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
-        title:  Text(
+        title: Text(
           "Send Us FeedBack",
           style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
         ),
@@ -33,7 +37,7 @@ class _FeedBackState extends State<FeedBack> {
             //     color: Theme.of(context).colorScheme.onBackground,
             //   ),
             // ),
-            const Expanded(
+            Expanded(
               flex: 1,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -47,8 +51,8 @@ class _FeedBackState extends State<FeedBack> {
                   ),
                   SizedBox(
                     child: OutlinedFormField(
-
                       maxLine: 7,
+                      controller: feedbackcontroller,
                       hint: 'Drop a feedback',
                     ),
                   ),
@@ -90,8 +94,17 @@ class _FeedBackState extends State<FeedBack> {
               child: Column(
                 children: [
                   CustomButton(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: const Text("Publish FeedBack"), onPressed: () {}),
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: isloading
+                          ? const SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: CircularProgressIndicator(),
+                            )
+                          : const Text("Publish FeedBack"),
+                      onPressed: () {
+                        feedbackReport();
+                      }),
                   const SizedBox(
                     height: 10,
                   ),
@@ -114,5 +127,25 @@ class _FeedBackState extends State<FeedBack> {
         ),
       ),
     );
+  }
+
+  Future<void> feedbackReport() async {
+    CollectionReference report =
+        FirebaseFirestore.instance.collection('reports');
+
+    CollectionReference abuse =
+        FirebaseFirestore.instance.collection('feedback');
+    // Call the user's CollectionReference to add a new report
+    return await report
+        .add({
+          'abusetype': feedbackcontroller,
+        })
+        .then((value) => print("report added"))
+        .catchError((error) => {
+              setState(() {
+                isloading = false;
+              }),
+              print('failed')
+            });
   }
 }

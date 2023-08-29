@@ -9,6 +9,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 import 'package:social_media/app_constants/theme/app_colors.dart';
 import 'package:social_media/app_utils/app_utils.dart';
+import 'package:social_media/features/authentication/auth_bloc/auth_bloc.dart';
 import 'package:social_media/features/authentication/data/repository/auth_repository_impl.dart';
 import 'package:social_media/features/authentication/presentation/screens/login_screen.dart';
 import 'package:social_media/features/authentication/presentation/widgets/custombutton_widgets.dart';
@@ -18,7 +19,6 @@ import 'package:social_media/features/profile/presentation/widgets/profile_pictu
 import 'package:social_media/features/profile/presentation/screens/edit_profile.dart';
 import 'package:social_media/features/profile/presentation/widgets/profile_items.dart';
 
-import '../../../authentication/bloc/auth_bloc.dart';
 
 class Profile extends StatefulWidget {
   const Profile({
@@ -41,18 +41,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppBar(
-        //   elevation: 0,
-        //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        //   title: Text(
-        //     "Profile",
-        //     style: TextStyle(
-        //       fontSize: 20,
-        //       fontWeight: FontWeight.w500,
-        //       color: Theme.of(context).colorScheme.onBackground,
-        //     ),
-        //   ),
-        // ),
+
         body: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection("users")
@@ -91,9 +80,9 @@ class _ProfileState extends State<Profile> {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onPrimary),
-                                    borderRadius: BorderRadius.circular(70)),
-                                height: 140,
-                                width: 140,
+                                    borderRadius: BorderRadius.circular(60)),
+                                height: 120,
+                                width: 120,
                                 child: snapshot.data!.docs[index] != null
                                     ? ClipOval(
                                         child: Image.network(
@@ -290,7 +279,7 @@ class _ProfileState extends State<Profile> {
                               voidCallback: () {},
                             ),
                             ProfileItems(
-                              text: 'Ukraine(country)',
+                              text: 'country',
                               iconData: Iconsax.location,
                               icons: SizedBox(),
                               voidCallback: () {},
@@ -352,3 +341,77 @@ class _ProfileState extends State<Profile> {
     )));
   }
 }
+
+
+
+
+//
+// import 'package:crypto_wallet/net/flutterfire.dart';
+// import 'package:flutter/material.dart';
+//
+// class AddView extends StatefulWidget {
+//   AddView({Key key}) : super(key: key);
+//
+//   @override
+//   _AddViewState createState() => _AddViewState();
+// }
+//
+// class _AddViewState extends State<AddView> {
+//   List<String> coins = [
+//     "bitcoin",
+//     "tether",
+//     "ethereum",
+//   ];
+//
+//   String dropdownValue = "bitcoin";
+//   TextEditingController _amountController = TextEditingController();
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Material(
+//       child: Column(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         children: [
+//           DropdownButton(
+//             value: dropdownValue,
+//             onChanged: (String value) {
+//               setState(() {
+//                 dropdownValue = value;
+//               });
+//             },
+//             items: coins.map<DropdownMenuItem<String>>((String value) {
+//               return DropdownMenuItem<String>(
+//                 value: value,
+//                 child: Text(value),
+//               );
+//             }).toList(),
+//           ),
+//           Container(
+//             width: MediaQuery.of(context).size.width / 1.3,
+//             child: TextFormField(
+//               controller: _amountController,
+//               decoration: InputDecoration(
+//                 labelText: "Coin Amount",
+//               ),
+//             ),
+//           ),
+//           Container(
+//             width: MediaQuery.of(context).size.width / 1.4,
+//             height: 45,
+//             decoration: BoxDecoration(
+//               borderRadius: BorderRadius.circular(15.0),
+//               color: Colors.white,
+//             ),
+//             child: MaterialButton(
+//               onPressed: () async {
+//                 await addCoin(dropdownValue, _amountController.text);
+//                 Navigator.of(context).pop();
+//               },
+//               child: Text("Add"),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

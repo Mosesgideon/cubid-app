@@ -39,8 +39,8 @@ class OtpSentState extends AuthState {
 
   const OtpSentState(
       {required this.number,
-      required this.resendToken,
-      required this.verificationId});
+        required this.resendToken,
+        required this.verificationId});
 
   @override
   List<Object?> get props => [];

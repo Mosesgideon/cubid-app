@@ -1,12 +1,10 @@
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
-import 'package:social_media/features/authentication/bloc/auth_bloc.dart';
+import 'package:social_media/features/authentication/auth_bloc/auth_bloc.dart';
 import 'package:social_media/features/authentication/data/repository/auth_repository_impl.dart';
-
 import '../../../authentication/presentation/widgets/custombutton_widgets.dart';
 
 class Bottomsheet extends StatefulWidget {

@@ -11,7 +11,7 @@ class SendOtpEvent extends AuthEvent {
 
   const SendOtpEvent(
       {this.resendToken,
-      this.phoneNumber,});
+        this.phoneNumber,});
 
   @override
   List<Object?> get props => [resendToken, phoneNumber];
@@ -24,8 +24,8 @@ class SendSmsFailedEvent extends AuthEvent {
 
   @override
   List<Object> get props => [
-        error,
-      ];
+    error,
+  ];
 }
 
 class OtpSentEvent extends AuthEvent {
@@ -50,8 +50,8 @@ class VerifyOtpFailedEvent extends AuthEvent {
 
   @override
   List<Object> get props => [
-        error,
-      ];
+    error,
+  ];
 }
 
 class VerificationCompleteEvent extends AuthEvent {
@@ -61,8 +61,8 @@ class VerificationCompleteEvent extends AuthEvent {
 
   @override
   List<Object> get props => [
-        credential,
-      ];
+    credential,
+  ];
 }
 
 class VerifyOtpEvent extends AuthEvent {

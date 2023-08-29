@@ -1,12 +1,9 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:social_media/features/chats_tab/presentations/models/user_model.dart';
 import '../../../authentication/presentation/widgets/custombutton_widgets.dart';
 
 class PostWidget extends StatefulWidget {
@@ -17,7 +14,7 @@ class PostWidget extends StatefulWidget {
 }
 
 class _PostWidgetState extends State<PostWidget> {
-  final _controller = TextEditingController();
+  // final _controller = TextEditingController();
   bool isloading = false;
   XFile? myfile;
 
@@ -29,7 +26,7 @@ class _PostWidgetState extends State<PostWidget> {
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(0.0),
         child: Expanded(
           child: Column(
             children: [
@@ -45,121 +42,52 @@ class _PostWidgetState extends State<PostWidget> {
                                   fit: BoxFit.cover)),
                         )
                       : Container(
-                          color: Colors.grey,
+                          color: Colors.white24,
                           height: 500,
                           width: MediaQuery.of(context).size.width,
-                          child: IconButton(
-                              onPressed: () {
-                                showModalBottomSheet(
-                                    backgroundColor: Colors.transparent,
-                                    context: context,
-                                    builder: (index) => Container(
-                                          padding: EdgeInsets.all(20),
-                                          height: 150,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(20),
-                                                    topRight:
-                                                        Radius.circular(20)),
-                                            color: Theme.of(context).cardColor,
-                                          ),
-                                          child: Center(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    Navigator.pop(context);
-                                                    getImage(
-                                                        ImageSource.gallery);
-                                                    // ImagePicker picker=ImagePicker().pickImage(source: ImageSource.gallery)
-                                                  },
-                                                  child: Column(
-                                                    children: [
-                                                      Icon(
-                                                        Iconsax.gallery,
-                                                        size: 60,
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .onBackground,
-                                                      ),
-                                                      Text(
-                                                        "Gallery",
-                                                        style: TextStyle(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .colorScheme
-                                                                .onBackground,
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    Navigator.pop(context);
-                                                    getImage(
-                                                        ImageSource.camera);
-                                                  },
-                                                  child: Column(
-                                                    children: [
-                                                      Icon(
-                                                        Iconsax.camera,
-                                                        size: 60,
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .onBackground,
-                                                      ),
-                                                      Text(
-                                                        "Camera",
-                                                        style: TextStyle(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .colorScheme
-                                                                .onBackground,
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400),
-                                                      )
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ));
-                              },
-                              icon: const Icon(
-                                Iconsax.gallery_add,
-                                size: 50,
-                                color: Colors.white,
-                              )),
-                        )),
+                          child: TextButton(
+                            onPressed: () {
+                              getImage(ImageSource.gallery);
+                            },
+                            child: const Text(
+                              'select image',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 16),
+                            ),
+                          )
+                          // IconButton(
+                          //     onPressed: () {
+                          //       getImage(
+                          //           ImageSource.gallery);
+                          //
+                          //     },
+                          //     icon:  Icon(
+                          //       Iconsax.gallery_add,
+                          //       size: 50,
+                          //       color: Theme.of(context).colorScheme.onBackground,
+                          //     )),
+                          )),
               const SizedBox(
                 height: 20,
               ),
               Spacer(),
-              CustomButton(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                  child: isloading
-                      ? const SizedBox(
-                          height: 25,
-                          width: 25,
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                          ))
-                      : const Text("Upload"),
-                  onPressed: () {
-                    uploadselectedImage();
-                  })
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: CustomButton(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 15),
+                    child: isloading
+                        ? const SizedBox(
+                            height: 25,
+                            width: 25,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ))
+                        : const Text("Upload"),
+                    onPressed: () {
+                      uploadselectedImage();
+                    }),
+              )
             ],
           ),
         ),
@@ -170,7 +98,7 @@ class _PostWidgetState extends State<PostWidget> {
   final _picker = ImagePicker();
 
   Future<File?> getImage(ImageSource source) async {
-    final image = await _picker.pickImage(source: source);
+    final image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       File myfile = File(image.path);
     }
@@ -199,7 +127,7 @@ class _PostWidgetState extends State<PostWidget> {
           setState(() {
             isloading = false;
           });
-          print("faled");
+          print("failed");
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(TaskState.error.toString())));
           break;
@@ -229,7 +157,7 @@ class _PostWidgetState extends State<PostWidget> {
       "posterId": uid,
       "posterName": users.get('name'),
       "userImage": users.get('image'),
-      "time": DateTime.now().millisecondsSinceEpoch,
+      "time": DateTime.now(),
     }).whenComplete(() {
       setState(() {
         isloading = false;

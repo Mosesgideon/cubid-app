@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 import 'package:social_media/common/models/app_error.dart';
 import 'package:social_media/features/authentication/domain/repository/auth_repository.dart';
-
 part 'auth_event.dart';
 
 part 'auth_state.dart';
@@ -27,7 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         verificationId: event.verificationId)));
 
     on<VerifyOtpFailedEvent>(
-        (event, emit) => emit(VerificationFailedState(event.error)));
+            (event, emit) => emit(VerificationFailedState(event.error)));
 
     on<SendSmsFailedEvent>((event, emit) => emit(SmsFailedState(event.error)));
 
@@ -70,7 +69,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoadingState());
     try {
       var respose =
-          await authRepository.verifyOtp(event.otp, event.verificationId);
+      await authRepository.verifyOtp(event.otp, event.verificationId);
 
       if (respose.error == null) {
         _signinUser(respose.response!);
@@ -87,9 +86,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _signinUser(UserCredential response) {
-    //   Do fire
-
-    try {
+       try {
       FirebaseFirestore.instance
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser?.uid)

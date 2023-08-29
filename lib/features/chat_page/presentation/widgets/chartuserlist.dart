@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:timeago/timeago.dart' as timeAgo;
 import 'package:iconsax/iconsax.dart';
 import 'package:social_media/features/authentication/presentation/widgets/textfield_widget.dart';
 import 'package:social_media/features/chat_page/presentation/widgets/chat_bubble.dart';
@@ -120,8 +121,8 @@ class _FriendsChatState extends State<FriendsChat> {
             // Text(snapshot.data().toString()),
 
             data['senderId'] == auth.currentUser!.uid
-                ? ChatBubble(message: data['message'])
-                : ChatBubbleNotUser(message: data['message']),
+                ? ChatBubble(message: data['message'], time: data['time'],)
+                : ChatBubbleNotUser(message: data['message'], time: data['time'],),
                  // Text(data['date']),
           ],
         ),

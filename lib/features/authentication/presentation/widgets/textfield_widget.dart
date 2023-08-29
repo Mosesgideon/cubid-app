@@ -54,6 +54,7 @@ class _FilledTextFieldState extends State<FilledTextField> {
         cursorColor: Theme.of(context).colorScheme.onBackground,
         onChanged: widget.onChanged,
         obscureText: widget.obscured!,
+
         textInputAction: widget.textInputAction,
         style: TextStyle(
             color: Theme.of(context).colorScheme.onBackground, fontSize: 13),
@@ -88,10 +89,11 @@ class OutlinedFormField extends StatefulWidget {
       this.onChange,
       this.onFieldSubmitted,
       this.enabled,
-      this.inputFormatters})
+      this.inputFormatters,  this.initialValue})
       : super(key: key);
   final String hint;
   final bool? obscure;
+  final String? initialValue;
   final Widget? suffix;
   final Widget? preffix;
   final int? maxLine;
@@ -115,6 +117,7 @@ class _OutlinedFormFieldState extends State<OutlinedFormField> {
         controller: widget.controller,
         validator: widget.validator,
         maxLines: widget.maxLine ?? 1,
+        initialValue: widget.initialValue,
         onChanged: widget.onChange,
         keyboardType: widget.inputType,
         onFieldSubmitted: widget.onFieldSubmitted,

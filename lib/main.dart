@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           if (state is ThemeChangedState) {
             return MaterialApp(
+              debugShowCheckedModeBanner: false,
               theme: state.isDark ? AppTheme.darkTheme : AppTheme.lightTheme,
               home: Scaffold(
                   body: StreamBuilder<User?>(

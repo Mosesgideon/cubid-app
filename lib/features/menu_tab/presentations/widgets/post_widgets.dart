@@ -157,7 +157,7 @@ class _PostWidgetState extends State<PostWidget> {
       "posterId": uid,
       "posterName": users.get('name'),
       "userImage": users.get('image'),
-      "time": DateTime.now(),
+      "time": DateTime.now().millisecondsSinceEpoch,
     }).whenComplete(() {
       setState(() {
         isloading = false;

@@ -175,17 +175,17 @@ class _MenuWidgetState extends State<MenuWidget> {
                                               // DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
                                               // String formattedTimeAgo = timeAgo.format(dateTime)
                                               timeAgo.format(
-                                                  DateTime.timestamp()
-                                                  //   .fromMillisecondsSinceEpoch(
-                                                  // snapshot.data?.docs[index]
-                                                  //     .get('time'),
-                                                  ),
+                                                DateTime
+                                                    .fromMillisecondsSinceEpoch(
+                                                  snapshot.data?.docs[index]
+                                                      .get('time'),
+                                                ),
+                                              ),
 
                                               style: TextStyle(
                                                   color: Theme.of(context)
                                                       .colorScheme
-                                                      .onBackground
-                                                      .withOpacity(0.9)),
+                                                      .onBackground),
                                             ),
                                           ],
                                         )

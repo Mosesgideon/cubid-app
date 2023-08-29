@@ -16,28 +16,26 @@ class _UserPostState extends State<UserPost> {
     return Column(
       children: [
         GestureDetector(
-          child: Container(
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: IconButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .push(CupertinoPageRoute(builder: (index) => const PostWidget()));
-              },
-              icon: const Icon(
-                Iconsax.add,
-                color: Colors.white,
-                size: 40,
+          onTap: () {
+            Navigator.of(context).push(
+                CupertinoPageRoute(builder: (index) => const PostWidget()));
+          },
+          child: Column(
+            children: [
+              Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: const Icon(Iconsax.add,color: Colors.white,size: 25,)
               ),
-            ),
+              const Text("Post",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500),),
+            ],
           ),
         ),
-              ],
+      ],
     );
   }
 }
-

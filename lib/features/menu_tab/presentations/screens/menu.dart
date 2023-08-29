@@ -8,12 +8,10 @@ import 'package:social_media/features/chats_tab/presentations/widgets/styles.dar
 import 'package:social_media/features/menu_tab/presentations/screens/privat_userpost.dart';
 import 'package:social_media/features/menu_tab/presentations/widgets/menu_widget.dart';
 
-
-
 class UserMenu extends StatefulWidget {
-
-
-  const UserMenu({Key? key,}) : super(key: key);
+  const UserMenu({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<UserMenu> createState() => _UserMenuState();
@@ -37,32 +35,44 @@ class _UserMenuState extends State<UserMenu> {
         title: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Text(
-            'Cubid App',
+            'Cubid',
             style: TextStyle(
-                color: Theme.of(context).colorScheme.onBackground, fontSize: 18),
+                color: Theme.of(context).colorScheme.onBackground,
+                fontSize: 18),
           ),
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         actions: [
-          IconButton(
-              splashRadius: 20,
-              onPressed: () {},
-              icon: const Icon(
-                Iconsax.add_circle,
-                size: 20,
-              )),
-          IconButton(
-              splashRadius: 20,
-              icon: const Icon(Iconsax.search_normal_1, size: 20), onPressed: () {  },
-              ),
+          // IconButton(
+          //     splashRadius: 20,
+          //     onPressed: () {},
+          //     icon: const Icon(
+          //       Iconsax.add_circle,
+          //       size: 20,
+          //     )),
           IconButton(
             splashRadius: 20,
-            icon: const Icon(Iconsax.message, size: 20),
-            onPressed: () {
-              Navigator.of(context)
-                  .push(CupertinoPageRoute(builder: (index) => Chats()));
-            },
+            icon: const Icon(Iconsax.search_normal_1, size: 20),
+            onPressed: () {},
           ),
+          Stack(clipBehavior: Clip.none,
+              children: [
+            const Positioned(
+                bottom: 35,
+                left: 27,
+                child: CircleAvatar(
+                  radius: 4,
+                  backgroundColor: Colors.red,
+                )),
+            IconButton(
+              splashRadius: 20,
+              icon: const Icon(Iconsax.message, size: 20),
+              onPressed: () {
+                Navigator.of(context)
+                    .push(CupertinoPageRoute(builder: (index) => Chats()));
+              },
+            ),
+          ]),
         ],
       ),
       body: NestedScrollView(
@@ -107,22 +117,27 @@ class _UserMenuState extends State<UserMenu> {
                                   itemCount: snapshot.data?.docs.length,
                                   itemBuilder: (context, index) =>
                                       Styles.circleProfile(
-                                               widget:Container(
+                                          widget: Stack(
+                                            clipBehavior: Clip.none,
+                                            children: [
+                                              // const Positioned(
+                                              //     bottom: 35,
+                                              //     left: 35,
+                                              //     child: CircleAvatar(radius: 5,)),
+                                              Container(
                                                   height: 50,
                                                   width: 50,
                                                   decoration: BoxDecoration(
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              25),
+                                                      BorderRadius.circular(25),
                                                       image: DecorationImage(
-                                                        fit: BoxFit.cover,
+                                                          fit: BoxFit.cover,
                                                           image: NetworkImage(
-                                                              snapshot.data!
-                                                                  .docs[index]
-                                                                  .get(
-                                                                      "image")))
-                                                  )),
-
+                                                              snapshot
+                                                                  .data!.docs[index]
+                                                                  .get("image"))))),
+                                            ]
+                                          ),
                                           context: context,
                                           // onTap: Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (index)=>Chats())),
                                           text: snapshot.data!.docs[index]
@@ -135,10 +150,7 @@ class _UserMenuState extends State<UserMenu> {
               ),
             ];
           },
-          body:const MenuWidget()),
+          body: const MenuWidget()),
     );
   }
 }
-
-
-

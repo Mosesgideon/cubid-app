@@ -50,26 +50,11 @@ class Styles {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Stack(clipBehavior: Clip.hardEdge,
-                children: [
-              Positioned(
-               bottom: -4,
-                  left: 45,
-                  child: Text(
-                ".",
-                style: TextStyle(
-                    color: isonline ? Colors.green : Colors.green,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 50),
-              )),
-              Container(
-                height: 60,
-                width: 60,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(30),
-                border: Border.all(color: Theme.of(context).colorScheme.primary,width: 2)),
-                child: widget,
-              ),
-            ]),
+
+            Container(
+
+              child: widget,
+            ),
             SizedBox(
                 width: 50,
                 child: Center(

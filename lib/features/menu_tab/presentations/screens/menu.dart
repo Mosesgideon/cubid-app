@@ -25,6 +25,24 @@ class _UserMenuState extends State<UserMenu> {
       .collection("users")
       .where('id', isNotEqualTo: FirebaseAuth.instance.currentUser?.uid)
       .snapshots();
+  final _listController = ScrollController();
+
+  void scrollListenerController() {
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+
+    _listController.addListener(scrollListenerController);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _listController.removeListener(scrollListenerController);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +61,7 @@ class _UserMenuState extends State<UserMenu> {
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         actions: [
-          // IconButton(
-          //     splashRadius: 20,
-          //     onPressed: () {},
-          //     icon: const Icon(
-          //       Iconsax.add_circle,
-          //       size: 20,
-          //     )),
+
           IconButton(
             splashRadius: 20,
             icon: const Icon(Iconsax.search_normal_1, size: 20),
@@ -57,13 +69,7 @@ class _UserMenuState extends State<UserMenu> {
           ),
           Stack(clipBehavior: Clip.none,
               children: [
-            const Positioned(
-                bottom: 35,
-                left: 27,
-                child: CircleAvatar(
-                  radius: 4,
-                  backgroundColor: Colors.red,
-                )),
+
             IconButton(
               splashRadius: 20,
               icon: const Icon(Iconsax.message, size: 20),
@@ -72,13 +78,24 @@ class _UserMenuState extends State<UserMenu> {
                     .push(CupertinoPageRoute(builder: (index) => Chats()));
               },
             ),
+                const Positioned(
+                    bottom: 28,
+                    left: 27,
+                    child: CircleAvatar(
+                      radius: 4,
+                      backgroundColor: Colors.red,
+                    )),
           ]),
         ],
       ),
       body: NestedScrollView(
+          controller: _listController,
           floatHeaderSlivers: true,
           physics: const BouncingScrollPhysics(),
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            // double opacity=0;
+            // if(opacity>1.0) opacity=1;
+            // if(opacity<0.0) opacity=0;
             return [
               SliverToBoxAdapter(
                 child: Padding(

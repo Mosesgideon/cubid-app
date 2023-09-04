@@ -28,3 +28,4 @@ class AppUtils {
       MediaQuery.of(context).size;
 }
 
+

@@ -6,6 +6,7 @@ class UserChats extends StatefulWidget {
   final String recieveremail;
   final String recieverimage;
   final String recieveruid;
+  // final String recieverNumber;
 
   const UserChats({
     Key? key,

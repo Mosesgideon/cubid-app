@@ -4,8 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:intl/intl.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:social_media/features/menu_tab/presentations/widgets/post_view.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 import 'package:social_media/features/menu_tab/presentations/widgets/bottom_items.dart';
 
@@ -21,12 +21,6 @@ class MenuWidget extends StatefulWidget {
 class _MenuWidgetState extends State<MenuWidget> {
   bool isfollowing = false;
   bool isLoading = false;
-
-  @override
-  void initState() {
-    // super.initState();
-    isfollowing = isfollowing;
-  }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> isFollowing(String userId) {
     User? currentUser = FirebaseAuth.instance.currentUser;
@@ -70,7 +64,24 @@ class _MenuWidgetState extends State<MenuWidget> {
 
   final FirebaseFirestore store = FirebaseFirestore.instance;
   late final String posts;
+  final _listController = ScrollController();
 
+  void scrollListenerController() {
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // super.initState();
+    _listController.addListener(scrollListenerController);
+    isfollowing = isfollowing;
+  }
+
+  @override
+  void dispose() {
+   _listController.removeListener(scrollListenerController);
+    super.dispose();
+  }
   // late  int timestamp;
 
   @override
@@ -90,6 +101,7 @@ class _MenuWidgetState extends State<MenuWidget> {
           return Image.asset(height: 100, width: 100, "assets/png/nodata.png");
         } else {
           return ListView.builder(
+
             itemCount: snapshot.data?.docs.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
@@ -107,14 +119,31 @@ class _MenuWidgetState extends State<MenuWidget> {
                           .withOpacity(.04)),
                   child: Stack(
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(15.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(snapshot.data?.docs[index]
-                                      .get('images')))),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 60),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15.0),
+                          child: InkWell(
+                            onTap: () =>
+                                Navigator.of(context).push(CupertinoPageRoute(
+                                    builder: (context) => PostView(
+                                          userImage: snapshot.data?.docs[index]
+                                              .get('images'),
+                                          username: snapshot.data?.docs[index]
+                                              .get('posterName'),
+                                        ))),
+                            child: Hero(
+                              tag: "images",
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(snapshot
+                                            .data?.docs[index]
+                                            .get('images')))),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
@@ -171,9 +200,6 @@ class _MenuWidgetState extends State<MenuWidget> {
                                               ),
                                             ),
                                             Text(
-                                              // int timestamp = snapshot.data?.docs[index].get('time');
-                                              // DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
-                                              // String formattedTimeAgo = timeAgo.format(dateTime)
                                               timeAgo.format(
                                                 DateTime
                                                     .fromMillisecondsSinceEpoch(
@@ -181,7 +207,6 @@ class _MenuWidgetState extends State<MenuWidget> {
                                                       .get('time'),
                                                 ),
                                               ),
-
                                               style: TextStyle(
                                                   color: Theme.of(context)
                                                       .colorScheme
@@ -195,7 +220,15 @@ class _MenuWidgetState extends State<MenuWidget> {
                                 ),
                               ],
                             ),
-                            const Positioned(bottom: 0, child: MenuBottomItem())
+                            const Positioned(
+                                bottom: 0,
+                                child: MenuBottomItem(
+                                    // snapshot:
+                                    // FirebaseFirestore.instance
+                                    //     .collection('users')
+                                    //
+                                    //     .where('user', isEqualTo: FirebaseAuth.instance.currentUser.uid))
+                                    ))
                           ],
                         ),
                       ),

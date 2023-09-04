@@ -79,10 +79,11 @@ class _HomeScreenState extends State<HomeScreen> {
           _switchTap(index);
         },
         currentIndex: selectindex,
-        backgroundColor:
-            Theme.of(context).colorScheme.onBackground.withOpacity(0.3),
+        backgroundColor: Theme.of(context).colorScheme.onBackground.withOpacity(0.3),
         unselectedItemColor: Theme.of(context).colorScheme.secondary,
         selectedItemColor: Theme.of(context).colorScheme.primary,
+        elevation: 0,
+
         items: const [
           BottomNavigationBarItem(icon: Icon(Iconsax.home), label: 'Menu'),
           BottomNavigationBarItem(icon: Icon(Iconsax.message), label: 'Chats'),

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../authentication/presentation/widgets/custombutton_widgets.dart';
 
@@ -32,62 +33,155 @@ class _PostWidgetState extends State<PostWidget> {
             children: [
               Center(
                   child: myfile != null
-                      ? Container(
-                          height: 450,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(0),
-                              image: DecorationImage(
-                                  image: FileImage(File(myfile!.path)),
-                                  fit: BoxFit.cover)),
-                        )
-                      : Container(
-                          color: Colors.white24,
-                          height: 500,
-                          width: MediaQuery.of(context).size.width,
-                          child: TextButton(
-                            onPressed: () {
-                              getImage(ImageSource.gallery);
-                            },
-                            child: const Text(
-                              'select image',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 16),
+                      ? Column(
+                        children: [
+                          Container(
+                              height: 550,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(0),
+                                  image: DecorationImage(
+                                      image: FileImage(File(myfile!.path)),
+                                      fit: BoxFit.cover)),
+                            ),
+                       const SizedBox(height: 20,),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: CustomButton(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 15),
+                                child: isloading
+                                    ? const SizedBox(
+                                    height: 25,
+                                    width: 25,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ))
+                                    : const Text("Upload"),
+                                onPressed: () {
+                                  uploadselectedImage();
+                                }),
+                          )
+
+                        ],
+                      )
+                      : Column(
+                        children: [
+                          Container(
+                              color: Colors.white24,
+                              height: 350,
+                              width: MediaQuery.of(context).size.width,
+                              child: Image.asset('assets/png/imgOnboard.png'),
+                              // child: TextButton(
+                              //   onPressed: () {
+                              //     getImage(ImageSource.gallery);
+                              //   },
+                              //   child: const Text(
+                              //     'select image',
+                              //     style: TextStyle(
+                              //         fontWeight: FontWeight.w500, fontSize: 16),
+                              //   ),
+                              // )
+                              // IconButton(
+                              //     onPressed: () {
+                              //       getImage(
+                              //           ImageSource.gallery);
+                              //
+                              //     },
+                              //     icon:  Icon(
+                              //       Iconsax.gallery_add,
+                              //       size: 50,
+                              //       color: Theme.of(context).colorScheme.onBackground,
+                              //     )),
+                              ),
+
+                          Container(
+                            padding: const EdgeInsets.only(right: 10),
+                            alignment: Alignment.bottomRight,
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .onBackground
+                                      .withOpacity(0.1),
+                                  child:  InkWell(
+                                    onTap: ()=> getImage(ImageSource.gallery),
+                                    child: Icon(Iconsax.gallery,
+                                        color: Theme.of(context).colorScheme.onBackground),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .onBackground
+                                      .withOpacity(0.1),
+                                  child:  Icon(Iconsax.video,
+                                      color: Theme.of(context).colorScheme.onBackground),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                CircleAvatar(
+                                    radius: 30,
+                                    backgroundColor: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground
+                                        .withOpacity(0.1),
+                                    child:  Icon(Iconsax.video,
+                                        color: Theme.of(context).colorScheme.onBackground))
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              children: [
+                                CustomButton(
+                                    isExpanded: false,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 15),
+                                    child: isloading
+                                        ? const SizedBox(
+                                        height: 25,
+                                        width: 25,
+                                        child: CircularProgressIndicator(
+                                          color: Colors.white,
+                                        ))
+                                        : const Text("Upload"),
+                                    onPressed: () {
+                                      uploadselectedImage();
+                                    }),
+                                CustomButton(
+                                  isExpanded: false,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 15),
+                                    child: isloading
+                                        ? const SizedBox(
+                                        height: 25,
+                                        width: 25,
+                                        child: CircularProgressIndicator(
+                                          color: Colors.white,
+                                        ))
+                                        : const Text("Upload"),
+                                    onPressed: () {
+                                      uploadselectedImage();
+                                    }),
+                              ],
                             ),
                           )
-                          // IconButton(
-                          //     onPressed: () {
-                          //       getImage(
-                          //           ImageSource.gallery);
-                          //
-                          //     },
-                          //     icon:  Icon(
-                          //       Iconsax.gallery_add,
-                          //       size: 50,
-                          //       color: Theme.of(context).colorScheme.onBackground,
-                          //     )),
-                          )),
-              const SizedBox(
-                height: 20,
-              ),
-              Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: CustomButton(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 15),
-                    child: isloading
-                        ? const SizedBox(
-                            height: 25,
-                            width: 25,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                            ))
-                        : const Text("Upload"),
-                    onPressed: () {
-                      uploadselectedImage();
-                    }),
-              )
+                        ],
+                      )),
+              // const SizedBox(
+              //   height: 20,
+              // ),
+
+
             ],
           ),
         ),

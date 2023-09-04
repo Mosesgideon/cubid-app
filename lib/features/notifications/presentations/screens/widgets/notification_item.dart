@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
 class NotificationItem extends StatefulWidget {
-  final String title;
+  final String tittle;
   final String message;
-  final String image;
+
 
   const NotificationItem(
       {Key? key,
-      required this.title,
-      required this.message,
-      required this.image})
+      required this.tittle,
+      required this.message,})
       : super(key: key);
 
   @override
@@ -31,33 +30,18 @@ class _NotificationItemState extends State<NotificationItem> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CircleAvatar(
-                  radius: 25,
-                  child: Image.network(
-                    widget.image,
-                    fit: BoxFit.cover,
-                  ),
-                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Message from ${widget.title}',
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              color:
-                                  Theme.of(context).colorScheme.onBackground),
-                        ),
-                        const Text(
-                          '10:45 pm',
-                          style: TextStyle(color: Colors.grey),
-                        )
-                      ],
+                    Text(
+                      widget.tittle,
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color:
+                              Theme.of(context).colorScheme.onBackground),
                     ),
                     const SizedBox(
                       height: 5,
@@ -66,8 +50,15 @@ class _NotificationItemState extends State<NotificationItem> {
                       widget.message,
                       style: const TextStyle(color: Colors.grey, fontSize: 12),
                     ),
+
                   ],
+
                 ),
+                const Text(
+                  '10:45 pm',
+                  style: TextStyle(color: Colors.grey),
+                )
+
               ],
             ),
           ),

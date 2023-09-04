@@ -15,6 +15,7 @@ class NotificationsScreen extends StatefulWidget {
 class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -42,9 +43,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             StreamBuilder<QuerySnapshot<dynamic>>(
               stream: FirebaseFirestore.instance
                   .collection("notifications")
-                  .doc('notificationId')
-                  .collection("messages")
-                  .where('id', isNotEqualTo: FirebaseAuth.instance)
                   .snapshots(),
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 if (snapshot.hasError) {
@@ -75,9 +73,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     itemCount: snapshot.data?.docs.length,
                     itemBuilder: (BuildContext context, int index) {
                       return NotificationItem(
-                        title: snapshot.data.docs[index].get('name'),
-                        message: snapshot.data.docs[index].get('message'),
-                        image: snapshot.data.docs[index].get('image'),
+                        tittle: snapshot.data.docs[index].get('tittle'),
+                        message: snapshot.data.docs[index].get('body'),
                       );
                     },
                   );

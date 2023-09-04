@@ -8,8 +8,6 @@ import 'package:social_media/features/authentication/presentation/screens/login_
 import 'package:social_media/features/authentication/presentation/screens/number_verification_screen.dart';
 import 'package:social_media/features/authentication/presentation/widgets/custombutton_widgets.dart';
 import 'package:social_media/features/authentication/presentation/widgets/textfield_widget.dart';
-import 'package:social_media/features/home_screen/presentation/homeScreen.dart';
-import 'package:social_media/features/video_tab/presentations/widgets/myuploads.dart';
 
 
 class SignUp extends StatefulWidget {

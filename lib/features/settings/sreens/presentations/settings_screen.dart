@@ -14,16 +14,16 @@ import 'package:social_media/features/settings/sreens/presentations/emial_settin
 import 'package:social_media/features/settings/sreens/presentations/faq.dart';
 import 'package:social_media/features/settings/sreens/widgets/settins_items.dart';
 
-class Settings extends StatefulWidget {
-  const Settings({
+class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<Settings> createState() => _SettingsState();
+  State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _SettingsState extends State<Settings> {
+class _SettingsScreenState extends State<SettingsScreen> {
   // var _darkEnabled = true;
   bool isDark = false;
 

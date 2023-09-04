@@ -24,8 +24,8 @@ class _VideosState extends State<Videos> {
                   color: Theme.of(context).colorScheme.onSecondary,
                   fontWeight: FontWeight.w500,
                   fontSize: 20),
-            ),),
+            ),));
 
-        body: ListView.builder(itemBuilder: (ctx, index) => Uploads()));
+        // body: ListView.builder(itemBuilder: (ctx, index) => Uploads()));
   }
 }

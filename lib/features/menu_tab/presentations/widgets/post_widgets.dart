@@ -22,6 +22,7 @@ class _PostWidgetState extends State<PostWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.onBackground.withOpacity(0.6),
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
@@ -72,27 +73,7 @@ class _PostWidgetState extends State<PostWidget> {
                               height: 350,
                               width: MediaQuery.of(context).size.width,
                               child: Image.asset('assets/png/imgOnboard.png'),
-                              // child: TextButton(
-                              //   onPressed: () {
-                              //     getImage(ImageSource.gallery);
-                              //   },
-                              //   child: const Text(
-                              //     'select image',
-                              //     style: TextStyle(
-                              //         fontWeight: FontWeight.w500, fontSize: 16),
-                              //   ),
-                              // )
-                              // IconButton(
-                              //     onPressed: () {
-                              //       getImage(
-                              //           ImageSource.gallery);
-                              //
-                              //     },
-                              //     icon:  Icon(
-                              //       Iconsax.gallery_add,
-                              //       size: 50,
-                              //       color: Theme.of(context).colorScheme.onBackground,
-                              //     )),
+
                               ),
 
                           Container(
@@ -141,37 +122,43 @@ class _PostWidgetState extends State<PostWidget> {
                           Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                CustomButton(
-                                    isExpanded: false,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 15),
-                                    child: isloading
-                                        ? const SizedBox(
-                                        height: 25,
-                                        width: 25,
-                                        child: CircularProgressIndicator(
-                                          color: Colors.white,
-                                        ))
-                                        : const Text("Upload"),
-                                    onPressed: () {
-                                      uploadselectedImage();
-                                    }),
-                                CustomButton(
-                                  isExpanded: false,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 15),
-                                    child: isloading
-                                        ? const SizedBox(
-                                        height: 25,
-                                        width: 25,
-                                        child: CircularProgressIndicator(
-                                          color: Colors.white,
-                                        ))
-                                        : const Text("Upload"),
-                                    onPressed: () {
-                                      uploadselectedImage();
-                                    }),
+                                SizedBox(
+                                  width: 150,
+                                  child: CustomButton(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 15),
+                                      child: isloading
+                                          ? const SizedBox(
+                                          height: 25,
+                                          width: 25,
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                          ))
+                                          : const Text("Upload"),
+                                      onPressed: () {
+                                        uploadselectedImage();
+                                      }),
+                                ),
+                                SizedBox(
+                                  width: 150,
+                                  child: CustomButton(
+
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 15),
+                                      child: isloading
+                                          ? const SizedBox(
+                                          height: 25,
+                                          width: 25,
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                          ))
+                                          : const Text("Upload"),
+                                      onPressed: () {
+                                        uploadselectedImage();
+                                      }),
+                                ),
                               ],
                             ),
                           )

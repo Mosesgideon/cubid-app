@@ -67,25 +67,28 @@ class _UserMenuState extends State<UserMenu> {
             icon: const Icon(Iconsax.search_normal_1, size: 20),
             onPressed: () {},
           ),
-          Stack(clipBehavior: Clip.none,
-              children: [
-
-            IconButton(
-              splashRadius: 20,
-              icon: const Icon(Iconsax.message, size: 20),
-              onPressed: () {
-                Navigator.of(context)
-                    .push(CupertinoPageRoute(builder: (index) => Chats()));
-              },
-            ),
-                const Positioned(
-                    bottom: 28,
-                    left: 27,
-                    child: CircleAvatar(
-                      radius: 4,
-                      backgroundColor: Colors.red,
-                    )),
-          ]),
+          StreamBuilder<QuerySnapshot<dynamic>>(
+            stream: FirebaseFirestore.instance.collection('chatroom').snapshots(),
+            builder: ( context, snapshot) =>Stack(clipBehavior: Clip.none,
+                children: [
+                  IconButton(
+                    splashRadius: 20,
+                    icon: const Icon(Iconsax.message, size: 20),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .push(CupertinoPageRoute(builder: (index) => Chats()));
+                    },
+                  ),
+                   Positioned(
+                      bottom: 28,
+                      left: 27,
+                      child: CircleAvatar(
+                        radius: 4,
+                        backgroundColor: Colors.red,
+                        child: Text(snapshot.data!.size.toString(),style: const TextStyle(color: Colors.white,fontSize: 8),),
+                      )),
+                ]),
+          ),
         ],
       ),
       body: NestedScrollView(

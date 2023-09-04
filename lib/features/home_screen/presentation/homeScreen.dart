@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -21,58 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
     const UserMenu(),
     Chats(),
     const NotificationsScreen(),
-    const Settings(),
+    const SettingsScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // drawer: DrawerMenu(
-      //   drawerItems: [
-      //     GroupDrawerItem(tittle: '', hasDivider: true, children: [
-      //       DrawerItem(
-      //           text: 'Home',
-      //           icon: Iconsax.home_1,
-      //           voidCallback: () {
-      //             _switchTap(0);
-      //           }),
-      //       DrawerItem(
-      //           text: 'Chats',
-      //           icon: Iconsax.message,
-      //           voidCallback: () {
-      //             _switchTap(1);
-      //           }),
-      //       DrawerItem(
-      //           text: 'Profile',
-      //           icon: Iconsax.profile_add,
-      //           voidCallback: () {
-      //             _switchTap(2);
-      //           }),
-      //       DrawerItem(
-      //           text: 'Community',
-      //           icon: Iconsax.people,
-      //           voidCallback: () {
-      //             _switchTap(3);
-      //           }),
-      //       DrawerItem(
-      //           text: 'Notifications',
-      //           icon: Iconsax.notification,
-      //           voidCallback: () {
-      //             _switchTap(4);
-      //           }),
-      //       DrawerItem(
-      //           text: 'Settings',
-      //           icon: Iconsax.setting_2,
-      //           voidCallback: () {
-      //             _switchTap(5);
-      //           }),
-      //     ]),
-      //     DrawerItem(text: 'Share', icon: Icons.share, voidCallback: () {}),
-      //     DrawerItem(text: 'LogOut', icon: Iconsax.logout, voidCallback: () {
-      //       FirebaseAuth.instance.signOut();
-      //     }),
-      //   ],
-      // ),
+
       bottomNavigationBar: BottomNavigationBar(
         // elevation: 0,
         onTap: (index) {
@@ -84,11 +39,34 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedItemColor: Theme.of(context).colorScheme.primary,
         elevation: 0,
 
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Iconsax.home), label: 'Menu'),
-          BottomNavigationBarItem(icon: Icon(Iconsax.message), label: 'Chats'),
+        items:  [
+          const BottomNavigationBarItem(icon: Icon(Iconsax.home), label: 'Menu'),
+          const  BottomNavigationBarItem(icon: Icon(Iconsax.message), label: 'Chats'),
           BottomNavigationBarItem(
-              icon: Icon(Iconsax.notification), label: 'Notifications'),
+              icon: StreamBuilder<QuerySnapshot<dynamic>>(
+                  stream: FirebaseFirestore.instance
+                      .collection("notifications")
+                      .snapshots(),
+                builder: (context, snapshot) {
+                  return Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      const Icon(Iconsax.notification),
+
+                      Positioned(
+                        top: -5,
+                        right: -2,
+
+                        child: CircleAvatar(
+                          backgroundColor: Colors.red,
+                          radius: 6,
+                          child: Text(snapshot.data!.size.toString(),style: const TextStyle(fontSize: 8),),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              ), label: 'Notifications'),
           BottomNavigationBarItem(
               icon: Icon(Iconsax.setting_2), label: 'Setting')
         ],

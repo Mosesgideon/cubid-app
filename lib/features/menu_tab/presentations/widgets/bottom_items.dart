@@ -94,6 +94,7 @@ class _MenuBottomItemState extends State<MenuBottomItem> {
                 Row(
                   children: [
                     StreamBuilder(
+                      stream: null,
                       // stream:  likePost(widget.snapshot.get('id')),
                       builder: (BuildContext context,
                           AsyncSnapshot<dynamic> snapshot) =>
@@ -105,17 +106,13 @@ class _MenuBottomItemState extends State<MenuBottomItem> {
                                 },
                                 child: const Icon(
                                   Iconsax.like_1,
+                                  size: 20,
                                 ),
                               ),
                               const SizedBox(width: 8.0),
-                              InkWell(
-                                  onTap: () {
-                                    log('liked');
-                                    // likePost(posts);
-                                  },
-                                  child: Text('30'))
+                              Text('30')
                             ],
-                          ), stream: null,
+                          ),
 
                     ),
                   ],
@@ -129,9 +126,10 @@ class _MenuBottomItemState extends State<MenuBottomItem> {
                             onPressed: () {
                               log('favourite');
                             },
-                            icon: const Icon(Icons.favorite, size: 24)),
+                            icon: const Icon(Iconsax.lovely, size: 20)),
 
                 ),
+                IconButton(onPressed: (){}, icon: const Icon(Iconsax.message_2,size: 20,)),
                 IconButton(
                     onPressed: () {
                       sharePost();

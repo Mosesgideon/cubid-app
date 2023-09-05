@@ -29,15 +29,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
 
       bottomNavigationBar: BottomNavigationBar(
-        // elevation: 0,
         onTap: (index) {
           _switchTap(index);
         },
         currentIndex: selectindex,
-        backgroundColor: Theme.of(context).colorScheme.onBackground.withOpacity(0.3),
         unselectedItemColor: Theme.of(context).colorScheme.secondary,
         selectedItemColor: Theme.of(context).colorScheme.primary,
         elevation: 0,
+        backgroundColor: Colors.grey,
 
         items:  [
           const BottomNavigationBarItem(icon: Icon(Iconsax.home), label: 'Menu'),
@@ -67,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
               ), label: 'Notifications'),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
               icon: Icon(Iconsax.setting_2), label: 'Setting')
         ],
       ),

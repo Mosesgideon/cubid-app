@@ -119,7 +119,7 @@ class _PostWidgetState extends State<PostWidget> {
                                         .colorScheme
                                         .onBackground
                                         .withOpacity(0.1),
-                                    child:  Icon(Iconsax.video,
+                                    child:  Icon(Iconsax.text,
                                         color: Theme.of(context).colorScheme.onBackground))
                               ],
                             ),
@@ -164,6 +164,7 @@ class _PostWidgetState extends State<PostWidget> {
                                           : const Text("Upload"),
                                       onPressed: () {
                                         uploadselectedImage();
+                                        // _uploadVideo();
                                       }),
                                 ),
                               ],
@@ -325,5 +326,19 @@ class _PostWidgetState extends State<PostWidget> {
     })
         .then((value) => print("report added"))
         .catchError((error) => print("Failed to add report: $error"));
+  }
+}
+
+class UploadVideo extends StatefulWidget {
+  const UploadVideo({Key? key}) : super(key: key);
+
+  @override
+  State<UploadVideo> createState() => _UploadVideoState();
+}
+
+class _UploadVideoState extends State<UploadVideo> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:social_media/features/menu_tab/presentations/screens/menu.dart';
 import '../../../authentication/presentation/widgets/custombutton_widgets.dart';
 
 class PostWidget extends StatefulWidget {
@@ -18,6 +19,7 @@ class _PostWidgetState extends State<PostWidget> {
   // final _controller = TextEditingController();
   bool isloading = false;
   XFile? myfile;
+  late File _videoFile;
 
   @override
   Widget build(BuildContext context) {
@@ -102,8 +104,11 @@ class _PostWidgetState extends State<PostWidget> {
                                       .colorScheme
                                       .onBackground
                                       .withOpacity(0.1),
-                                  child:  Icon(Iconsax.video,
-                                      color: Theme.of(context).colorScheme.onBackground),
+                                  child:  InkWell(
+                                    onTap: _pickVideo,
+                                    child: Icon(Iconsax.video,
+                                        color: Theme.of(context).colorScheme.onBackground),
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 10,
@@ -127,18 +132,20 @@ class _PostWidgetState extends State<PostWidget> {
                                 SizedBox(
                                   width: 150,
                                   child: CustomButton(
+                                    bgColor: Colors.red,
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 15),
-                                      child: isloading
-                                          ? const SizedBox(
-                                          height: 25,
-                                          width: 25,
-                                          child: CircularProgressIndicator(
-                                            color: Colors.white,
-                                          ))
-                                          : const Text("Upload"),
+                                      child:
+                                          const Row(
+                                            children: [
+                                              SizedBox(width: 20,),
+                                              Icon(Iconsax.arrow_left),
+                                              SizedBox(width: 5,),
+                                              Text("Cancel"),
+                                            ],
+                                          ),
                                       onPressed: () {
-                                        uploadselectedImage();
+                                        Navigator.pop(context);
                                       }),
                                 ),
                                 SizedBox(
@@ -164,9 +171,7 @@ class _PostWidgetState extends State<PostWidget> {
                           )
                         ],
                       )),
-              // const SizedBox(
-              //   height: 20,
-              // ),
+
 
 
             ],
@@ -257,5 +262,68 @@ class _PostWidgetState extends State<PostWidget> {
     return reference.set({
       "images": imageUrl,
     });
+  }
+
+  Future<void> _pickVideo() async {
+    final pickedFile =
+    await ImagePicker().pickVideo(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _videoFile = File(pickedFile.path);
+      });
+    }
+  }
+
+  Future<void> _uploadVideo() async {
+    if (_videoFile != null) {
+      final storageReference =
+      FirebaseStorage.instance.ref().child('videos/${DateTime.now()}.mp4');
+      final uploadTask = storageReference.putFile(_videoFile!);
+      uploadTask.snapshotEvents.listen((event) async {
+        switch (event.state) {
+          case TaskState.error:
+            setState(() {
+              isloading = false;
+            });
+            print("faled");
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(TaskState.error.toString())));
+            break;
+          case TaskState.running:
+            setState(() {
+              isloading = true;
+            });
+            print("loading");
+            break;
+          case TaskState.success:
+            storageReference.getDownloadURL().then((value) async {
+              await postVideo(value);
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  duration: Duration(milliseconds: 1000),
+                  content: Text("Successful")));
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (index) => UserMenu()));
+            });
+            break;
+          case TaskState.paused:
+          // TODO: Handle this case.
+          case TaskState.canceled:
+          // TODO: Handle this case.
+        }
+      });
+    }
+  }
+
+  Future<void> postVideo(String vidUrl) async {
+    CollectionReference abuse =
+    FirebaseFirestore.instance.collection('posts');
+
+    // Call the user's CollectionReference to add a new report
+    return await abuse
+        .add({
+      'video': vidUrl,
+    })
+        .then((value) => print("report added"))
+        .catchError((error) => print("Failed to add report: $error"));
   }
 }

@@ -109,7 +109,7 @@ class _MenuWidgetState extends State<MenuWidget> {
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
                 child: Container(
                   margin: const EdgeInsets.only(bottom: 5.0),
-                  height: 400,
+                  height: 500,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
@@ -135,9 +135,10 @@ class _MenuWidgetState extends State<MenuWidget> {
                             child: Hero(
                               tag: "images",
                               child: Container(
+
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
-                                        fit: BoxFit.cover,
+                                        fit: BoxFit.fill,
                                         image: NetworkImage(snapshot
                                             .data?.docs[index]
                                             .get('images')))),

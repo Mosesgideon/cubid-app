@@ -85,7 +85,7 @@ class _UserMenuState extends State<UserMenu> {
                       child: CircleAvatar(
                         radius: 4,
                         backgroundColor: Colors.red,
-                        child: Text(snapshot.data!.size.toString(),style: const TextStyle(color: Colors.white,fontSize: 8),),
+                        child: Center(child: Text(snapshot.data!.size.toString(),style: const TextStyle(color: Colors.white,fontSize: 6),)),
                       )),
                 ]),
           ),

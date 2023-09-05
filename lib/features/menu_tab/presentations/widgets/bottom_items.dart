@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,11 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class MenuBottomItem extends StatefulWidget {
-  // final QueryDocumentSnapshot snapshot;
   const MenuBottomItem({
     Key? key,
-    // required this.snapshot,
-    // required this.snapshot
   }) : super(key: key);
 
   @override
@@ -102,7 +100,9 @@ class _MenuBottomItemState extends State<MenuBottomItem> {
                           Row(
                             children: [
                               InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  log('liked');
+                                },
                                 child: const Icon(
                                   Iconsax.like_1,
                                 ),
@@ -110,6 +110,7 @@ class _MenuBottomItemState extends State<MenuBottomItem> {
                               const SizedBox(width: 8.0),
                               InkWell(
                                   onTap: () {
+                                    log('liked');
                                     // likePost(posts);
                                   },
                                   child: Text('30'))
@@ -125,7 +126,9 @@ class _MenuBottomItemState extends State<MenuBottomItem> {
                     builder: (BuildContext context,
                         AsyncSnapshot<dynamic> snapshot) =>
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              log('favourite');
+                            },
                             icon: const Icon(Icons.favorite, size: 24)),
 
                 ),

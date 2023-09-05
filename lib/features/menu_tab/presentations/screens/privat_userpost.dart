@@ -31,7 +31,7 @@ class _UserPostState extends State<UserPost> {
                 ),
                 child: const Icon(Iconsax.add,color: Colors.white,size: 25,)
               ),
-              const Text("Post",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500),),
+               Text("Post",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500,color: Theme.of(context).colorScheme.onBackground),),
             ],
           ),
         ),

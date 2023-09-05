@@ -36,8 +36,8 @@ class _PostViewState extends State<PostView> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.only(top: 50),
+            SizedBox(
+              // padding: EdgeInsets.only(top: 30),
               width: MediaQuery.of(context).size.width,
               height: 500,
               child: Hero(
@@ -46,7 +46,7 @@ class _PostViewState extends State<PostView> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                           image: NetworkImage(widget.userImage),
-                          fit: BoxFit.cover),
+                          fit: BoxFit.fill),
                     ),
                   )),
             ),

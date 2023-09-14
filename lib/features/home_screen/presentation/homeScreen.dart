@@ -6,6 +6,7 @@ import 'package:social_media/features/chat_page/presentation/screens/chat_list/c
 import 'package:social_media/features/menu_tab/presentations/screens/menu.dart';
 import 'package:social_media/features/notifications/presentations/screens/notifications.dart';
 import 'package:social_media/features/settings/sreens/presentations/settings_screen.dart';
+import 'package:social_media/features/video_tab/presentations/screens/videos.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static List<StatefulWidget> pages = [
     const UserMenu(),
     Chats(),
-    const NotificationsScreen(),
+   const Videos(),
     const SettingsScreen(),
   ];
 
@@ -38,35 +39,23 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         backgroundColor: Colors.grey,
 
-        items:  [
-          const BottomNavigationBarItem(icon: Icon(Iconsax.home), label: 'Menu'),
-          const  BottomNavigationBarItem(icon: Icon(Iconsax.message), label: 'Chats'),
+        items:  const [
+          BottomNavigationBarItem(icon: Icon(Iconsax.home), label: 'Menu'),
+            BottomNavigationBarItem(icon: Stack(clipBehavior: Clip.none,
+                children: [
+                  Icon(Iconsax.message, size: 25),
+                  Positioned(
+                      bottom: 17,
+                      left: 18,
+                      child: CircleAvatar(
+                        radius: 5,
+                        backgroundColor: Colors.red,
+                      )),
+                ]),
+           label: 'Chats'),
           BottomNavigationBarItem(
-              icon: StreamBuilder<QuerySnapshot<dynamic>>(
-                  stream: FirebaseFirestore.instance
-                      .collection("notifications")
-                      .snapshots(),
-                builder: (context, snapshot) {
-                  return Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      const Icon(Iconsax.notification),
-
-                      Positioned(
-                        top: -5,
-                        right: -2,
-
-                        child: CircleAvatar(
-                          backgroundColor: Colors.red,
-                          radius: 6,
-                          child: Text(snapshot.data!.size.toString(),style: const TextStyle(fontSize: 8),),
-                        ),
-                      ),
-                    ],
-                  );
-                }
-              ), label: 'Notifications'),
-          const BottomNavigationBarItem(
+              icon: Icon(Iconsax.video), label: 'Videos'),
+          BottomNavigationBarItem(
               icon: Icon(Iconsax.setting_2), label: 'Setting')
         ],
       ),

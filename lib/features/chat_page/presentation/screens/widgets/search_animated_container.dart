@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:social_media/features/chats_tab/presentations/widgets/chat_list.dart';
+import 'package:social_media/features/chat_page/presentation/screens/widgets/chat_list.dart';
 
 class AnimatedDialog extends StatefulWidget {
   final double height;

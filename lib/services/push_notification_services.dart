@@ -85,3 +85,63 @@ class PushNotificationService {
     }
   }
 }
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//
+//   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+//   FlutterLocalNotificationsPlugin();
+//
+//   // Initialize notification settings for Android and iOS
+//   const AndroidInitializationSettings androidInitializationSettings =
+//   AndroidInitializationSettings('app_icon');
+//   final IOSInitializationSettings iosInitializationSettings =
+//   IOSInitializationSettings(
+//     requestSoundPermission: false,
+//     requestBadgePermission: false,
+//     requestAlertPermission: false,
+//   );
+//   final InitializationSettings initializationSettings =
+//   InitializationSettings(
+//     android: androidInitializationSettings,
+//     iOS: iosInitializationSettings,
+//   );
+//
+//   await flutterLocalNotificationsPlugin.initialize(
+//     initializationSettings,
+//   );
+//
+//   runApp(MyApp());
+// }
+
+// Future<void> showChatNotification(
+//     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
+//     String title,
+//     String body) async {
+//   const AndroidNotificationDetails androidPlatformChannelSpecifics =
+//   AndroidNotificationDetails(
+//     'chat_notification_channel',
+//     'Chat Notifications',
+//     'Notifications for incoming chat messages',
+//     importance: Importance.max,
+//     priority: Priority.high,
+//     enableVibration: true,
+//     playSound: true,
+//     sound: RawResourceAndroidNotificationSound('notification_sound'),
+//   );
+//
+//   const IOSNotificationDetails iosPlatformChannelSpecifics =
+//   IOSNotificationDetails(presentSound: false);
+//
+//   const NotificationDetails platformChannelSpecifics = NotificationDetails(
+//     android: androidPlatformChannelSpecifics,
+//     iOS: iosPlatformChannelSpecifics,
+//   );
+//
+//   await flutterLocalNotificationsPlugin.show(
+//     0,
+//     title,
+//     body,
+//     platformChannelSpecifics,
+//   );
+// }
+

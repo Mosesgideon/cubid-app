@@ -79,9 +79,10 @@ class _MenuWidgetState extends State<MenuWidget> {
 
   @override
   void dispose() {
-   _listController.removeListener(scrollListenerController);
+    _listController.removeListener(scrollListenerController);
     super.dispose();
   }
+
   // late  int timestamp;
 
   @override
@@ -101,15 +102,14 @@ class _MenuWidgetState extends State<MenuWidget> {
           return Image.asset(height: 100, width: 100, "assets/png/nodata.png");
         } else {
           return ListView.builder(
-
             itemCount: snapshot.data?.docs.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
+                    const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5),
                 child: Container(
                   margin: const EdgeInsets.only(bottom: 5.0),
-                  height: 500,
+                  height: 450,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
@@ -135,7 +135,6 @@ class _MenuWidgetState extends State<MenuWidget> {
                             child: Hero(
                               tag: "images",
                               child: Container(
-
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
                                         fit: BoxFit.fill,
@@ -221,15 +220,11 @@ class _MenuWidgetState extends State<MenuWidget> {
                                 ),
                               ],
                             ),
-                            const Positioned(
+                            Positioned(
                                 bottom: 0,
                                 child: MenuBottomItem(
-                                    // snapshot:
-                                    // FirebaseFirestore.instance
-                                    //     .collection('users')
-                                    //
-                                    //     .where('user', isEqualTo: FirebaseAuth.instance.currentUser.uid))
-                                    ))
+                                  postId: snapshot.data!.docs[index].id,
+                                ))
                           ],
                         ),
                       ),
@@ -245,56 +240,7 @@ class _MenuWidgetState extends State<MenuWidget> {
   }
 }
 
-// class PopUp extends StatefulWidget {
-//   VoidCallback voidCallback;
-//
-//   PopUp({Key? key, required this.voidCallback}) : super(key: key);
-//
-//   @override
-//   State<PopUp> createState() => _PopUpState();
-// }
-// class _PopUpState extends State<PopUp> {
-//   List<String> menuItems = ['Item 1', 'Item 2', 'Item 3'];
-//
-//   void addItem() {
-//     setState(() {
-//       menuItems.add('New Item');
-//     });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return PopupMenuButton<String>(
-//       icon: Icon(
-//         Icons.more_vert_outlined,
-//         color: Theme.of(context).colorScheme.onBackground,
-//       ),
-//       elevation: 0,
-//       color: Theme.of(context).colorScheme.onBackground.withOpacity(0.9),
-//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-//       itemBuilder: (BuildContext context) {
-//         return [
-//           PopupMenuItem(
-//             onTap: widget.voidCallback,
-//             child: Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Column(
-//                 children: [
-//                   Text(
-//                     'Following',
-//                     style: TextStyle(
-//                         color: Theme.of(context).colorScheme.onBackground),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ];
-//       },
-//       onSelected: (value) {},
-//     );
-//   }
-// }
+
 
 class ViewImage extends StatefulWidget {
   final String image;

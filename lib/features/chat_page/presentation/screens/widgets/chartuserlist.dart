@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:timeago/timeago.dart' as timeAgo;
+import 'package:intl/intl.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:social_media/features/authentication/presentation/widgets/textfield_widget.dart';
-import 'package:social_media/features/chat_page/presentation/widgets/chat_bubble.dart';
-import 'package:social_media/features/chat_page/presentation/widgets/chat_services.dart';
+import 'package:social_media/features/chat_page/presentation/screens/widgets/chat_bubble.dart';
+import 'package:social_media/features/chat_page/presentation/screens/widgets/chat_services.dart';
 
 class FriendsChat extends StatefulWidget {
   final String email;
@@ -42,7 +41,7 @@ class _FriendsChatState extends State<FriendsChat> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 5),
       child: Column(children: [
         //build message item
         Expanded(child: buildMessageList()),
@@ -97,7 +96,7 @@ class _FriendsChatState extends State<FriendsChat> {
               color: Colors.black,
             ),
             suffix: GestureDetector(
-                onTap: SendMessage, child: const Icon(Iconsax.send1)),
+                onTap: SendMessage, child: const Icon(Icons.send)),
             hint: 'send message',
           ),
         )
@@ -121,8 +120,8 @@ class _FriendsChatState extends State<FriendsChat> {
             // Text(snapshot.data().toString()),
 
             data['senderId'] == auth.currentUser!.uid
-                ? ChatBubble(message: data['message'], time: data['time'],)
-                : ChatBubbleNotUser(message: data['message'], time: data['time'],),
+                ? ChatBubble(message: data['message'], time: DateFormat('hh:mm a').format(DateTime.now()),)
+                : ChatBubbleNotUser(message: data['message'], time:DateFormat('hh:mm a').format(DateTime.now()),),
                  // Text(data['date']),
           ],
         ),

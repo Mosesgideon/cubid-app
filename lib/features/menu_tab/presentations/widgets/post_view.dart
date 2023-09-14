@@ -77,11 +77,11 @@ class _PostViewState extends State<PostView> {
                     radius: 20,
                     backgroundColor: Theme.of(context).colorScheme.onBackground,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
                     color:  Colors.grey.withOpacity(0.2)),
                     child: Column(

@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class AppUtils {
@@ -19,13 +20,39 @@ class AppUtils {
 
       constraints:
           BoxConstraints(maxHeight: getDeviceSize(context).height * 0.8),
-// closeProgressThreshold: 200,
-// duration: const Duration(milliseconds: 300),
       builder: (context) => child,
     );
   }
+
   static Size getDeviceSize(BuildContext context) =>
       MediaQuery.of(context).size;
+
+ static  Future<List<PlatformFile>?> pickVideo() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.video,
+        allowMultiple: true
+      );
+      if (result != null && result.files.isNotEmpty) {
+        return result.files;
+      } else {}
+    } catch (e) {
+      print('Error picking video: $e');
+      return null;
+    }
+  }
+  static  Future<List<PlatformFile>?> onVideo() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+          type: FileType.video,
+       allowMultiple: false
+      );
+      if (result != null && result.files.isNotEmpty) {
+        return result.files;
+      } else {}
+    } catch (e) {
+      print('Error picking video: $e');
+      return null;
+    }
+  }
 }
-
-

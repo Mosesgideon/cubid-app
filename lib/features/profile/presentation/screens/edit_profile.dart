@@ -162,5 +162,3 @@ class _EditProfileState extends State<EditProfile> {
   }
 }
 
-// void updateProfile() {
-// }z

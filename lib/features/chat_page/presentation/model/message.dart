@@ -1,11 +1,12 @@
-class Message {
+class Messages {
   final String senderID;
   final String senderEmail;
   final String recieverID;
   final String message;
   final String time;
 
-  Message(
+
+  Messages(
       {required this.senderID,
       required this.senderEmail,
       required this.recieverID,

@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:social_media/features/chat_page/presentation/screens/chat_list/chats.dart';
-import 'package:social_media/features/chats_tab/presentations/widgets/chat_list.dart';
-import 'package:social_media/features/menu_tab/presentations/widgets/menu_widget.dart';
+import 'package:social_media/features/chat_page/presentation/screens/widgets/chat_list.dart';
 
 class Chats extends StatefulWidget {
   Chats({
@@ -18,12 +17,22 @@ class Chats extends StatefulWidget {
 }
 
 class _ChatsState extends State<Chats> {
+  final _searchController=TextEditingController();
   final Stream<QuerySnapshot<Map<String, dynamic>>> _users = FirebaseFirestore
       .instance
       .collection("users")
       .where('id', isNotEqualTo: FirebaseAuth.instance.currentUser?.uid)
       .snapshots();
   late bool open = false;
+
+  String _searchTerm = '';
+
+  // Function to search for users based on the provided search term
+  Future<void> _searchUsers() async {
+    setState(() {
+      _searchTerm = _searchController.text;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

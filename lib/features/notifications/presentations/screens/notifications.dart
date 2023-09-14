@@ -20,6 +20,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
+        leading: IconButton(icon: Icon(Iconsax.arrow_left,size: 20,color: Theme.of(context).colorScheme.onBackground,), onPressed: () {
+          Navigator.pop(context);
+          },),
         title: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Text(
@@ -31,7 +34,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Icon(
-              Iconsax.notification,
+              Iconsax.notification,size: 20,
               color: Theme.of(context).colorScheme.onBackground,
             ),
           )

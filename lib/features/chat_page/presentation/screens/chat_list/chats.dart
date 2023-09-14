@@ -1,11 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:social_media/features/chat_page/presentation/widgets/chartuserlist.dart';
+import 'package:social_media/features/call/presentations/screens/audio.dart';
+import 'package:social_media/features/call/presentations/screens/video.dart';
+import 'package:social_media/features/chat_page/presentation/screens/widgets/chartuserlist.dart';
 
 class UserChats extends StatefulWidget {
   final String recieveremail;
   final String recieverimage;
   final String recieveruid;
+
   // final String recieverNumber;
 
   const UserChats({
@@ -29,13 +33,19 @@ class _UserChatsState extends State<UserChats> {
         elevation: 0,
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                    CupertinoPageRoute(builder: (index) => VideoCallScreen(callID:  widget.recieveruid ,)));
+              },
               icon: const Icon(
                 Iconsax.video5,
                 size: 20,
               )),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                    CupertinoPageRoute(builder: (index) => const AudioCallScreen()));
+              },
               icon: const Icon(
                 Iconsax.call5,
                 size: 20,

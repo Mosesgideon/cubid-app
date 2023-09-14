@@ -124,56 +124,9 @@ class _PostWidgetState extends State<PostWidget> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(
-                                  width: 150,
-                                  child: CustomButton(
-                                    bgColor: Colors.red,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 15),
-                                      child:
-                                          const Row(
-                                            children: [
-                                              SizedBox(width: 20,),
-                                              Icon(Iconsax.arrow_left),
-                                              SizedBox(width: 5,),
-                                              Text("Cancel"),
-                                            ],
-                                          ),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      }),
-                                ),
-                                SizedBox(
-                                  width: 150,
-                                  child: CustomButton(
 
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 15),
-                                      child: isloading
-                                          ? const SizedBox(
-                                          height: 25,
-                                          width: 25,
-                                          child: CircularProgressIndicator(
-                                            color: Colors.white,
-                                          ))
-                                          : const Text("Upload"),
-                                      onPressed: () {
-                                        uploadselectedImage();
-                                        // _uploadVideo();
-                                      }),
-                                ),
-                              ],
-                            ),
-                          )
                         ],
                       )),
-
-
 
             ],
           ),

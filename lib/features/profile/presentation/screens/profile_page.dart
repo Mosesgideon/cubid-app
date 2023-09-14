@@ -19,7 +19,6 @@ import 'package:social_media/features/profile/presentation/widgets/profile_pictu
 import 'package:social_media/features/profile/presentation/screens/edit_profile.dart';
 import 'package:social_media/features/profile/presentation/widgets/profile_items.dart';
 
-
 class Profile extends StatefulWidget {
   const Profile({
     Key? key,
@@ -41,7 +40,6 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         body: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection("users")
@@ -290,19 +288,87 @@ class _ProfileState extends State<Profile> {
                               color: Colors.red,
                               icons: SizedBox(),
                               voidCallback: () {
-                                // showDialog(
-                                //     context: context,
-                                //     barrierDismissible: false,
-                                //     builder: (context) =>
-                                //         ScaffoldMessenger.of(context).showSnackBar(
-                                //             SnackBar(duration: Duration(milliseconds: 100),
-                                //                 content: Text("logged out")));
-                                // );
-                                FirebaseAuth.instance.signOut();
-                                Navigator.pushReplacement(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (index) => LoginScreen()));
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) => AlertDialog(
+                                          backgroundColor:
+                                              Theme.of(context).cardColor,
+                                          actions: [
+                                            Container(
+                                              padding: const EdgeInsets.all(10),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)),
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                    'Do you wish to logout',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontSize: 18,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .onBackground),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: Text(
+                                                              'No',
+                                                              style: TextStyle(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .colorScheme
+                                                                      .onBackground),
+                                                            )),
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                              FirebaseAuth
+                                                                  .instance
+                                                                  .signOut()
+                                                                  .whenComplete(() => ScaffoldMessenger.of(
+                                                                          context)
+                                                                      .showSnackBar(SnackBar(
+                                                                          backgroundColor: Theme.of(context).colorScheme.onBackground,
+                                                                          content: const Text(
+                                                                            'sign out successful',
+                                                                            style:
+                                                                                TextStyle(color: Colors.green),
+                                                                          ))));
+                                                              Navigator.pushReplacement(
+                                                                  context,
+                                                                  CupertinoPageRoute(
+                                                                      builder:
+                                                                          (index) =>
+                                                                              const LoginScreen()));
+                                                            },
+                                                            child: const Text(
+                                                              'Yes',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .red),
+                                                            ))
+                                                      ])
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ));
                               },
                             ),
                             Padding(
@@ -310,7 +376,7 @@ class _ProfileState extends State<Profile> {
                               child: TextButton(
                                   onPressed: () {},
                                   child: Text(
-                                    "Recent activity",
+                                    "more activity",
                                     style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -341,77 +407,3 @@ class _ProfileState extends State<Profile> {
     )));
   }
 }
-
-
-
-
-//
-// import 'package:crypto_wallet/net/flutterfire.dart';
-// import 'package:flutter/material.dart';
-//
-// class AddView extends StatefulWidget {
-//   AddView({Key key}) : super(key: key);
-//
-//   @override
-//   _AddViewState createState() => _AddViewState();
-// }
-//
-// class _AddViewState extends State<AddView> {
-//   List<String> coins = [
-//     "bitcoin",
-//     "tether",
-//     "ethereum",
-//   ];
-//
-//   String dropdownValue = "bitcoin";
-//   TextEditingController _amountController = TextEditingController();
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Material(
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           DropdownButton(
-//             value: dropdownValue,
-//             onChanged: (String value) {
-//               setState(() {
-//                 dropdownValue = value;
-//               });
-//             },
-//             items: coins.map<DropdownMenuItem<String>>((String value) {
-//               return DropdownMenuItem<String>(
-//                 value: value,
-//                 child: Text(value),
-//               );
-//             }).toList(),
-//           ),
-//           Container(
-//             width: MediaQuery.of(context).size.width / 1.3,
-//             child: TextFormField(
-//               controller: _amountController,
-//               decoration: InputDecoration(
-//                 labelText: "Coin Amount",
-//               ),
-//             ),
-//           ),
-//           Container(
-//             width: MediaQuery.of(context).size.width / 1.4,
-//             height: 45,
-//             decoration: BoxDecoration(
-//               borderRadius: BorderRadius.circular(15.0),
-//               color: Colors.white,
-//             ),
-//             child: MaterialButton(
-//               onPressed: () async {
-//                 await addCoin(dropdownValue, _amountController.text);
-//                 Navigator.of(context).pop();
-//               },
-//               child: Text("Add"),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }

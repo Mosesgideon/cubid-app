@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_media/app_constants/theme/app_colors.dart';
 
 class ChatBubble extends StatelessWidget {
   final String message;
@@ -13,16 +14,16 @@ class ChatBubble extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
+          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+          decoration:  BoxDecoration(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   bottomRight: Radius.circular(10),
                   bottomLeft: Radius.circular(10)),
-              color: Colors.grey),
+              color:Theme.of(context).colorScheme.primary),
           child: Text(
             message,
-            style: const TextStyle(color: Colors.black),
+            style: const TextStyle(color: textcolor,fontSize: 15),
           ),
         ),
         Text(
@@ -50,17 +51,17 @@ class ChatBubbleNotUser extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(5),
-                  bottomRight: Radius.circular(5),
-                  bottomLeft: Radius.circular(5)),
+          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+          decoration:  BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10)),
 
-              color: Colors.grey),
+              color: Theme.of(context).colorScheme.onBackground),
           child: Text(
             message,
-            style: const TextStyle(color: Colors.black),
+            style: const TextStyle(color: textcolor,fontSize: 15),
 
           ),
         ),

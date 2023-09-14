@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class AboutPage extends StatefulWidget {
   const AboutPage({Key? key}) : super(key: key);
@@ -13,6 +14,15 @@ class _AboutPageState extends State<AboutPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Iconsax.arrow_left,
+            color: Theme.of(context).colorScheme.onBackground,
+          ),
+        ),
         title: Text(
           "About",
           style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
@@ -55,7 +65,7 @@ class _AboutPageState extends State<AboutPage> {
                   height: 5,
                 ),
                 Text(
-                  "By using view chat, you agree to view chat terms and privacy",
+                  "By using view chat, you agree to Cubid app terms and privacy",
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onBackground),
                 ),

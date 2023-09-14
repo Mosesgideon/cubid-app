@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class FAQ extends StatefulWidget {
   const FAQ({Key? key}) : super(key: key);
@@ -13,6 +14,15 @@ class _FAQState extends State<FAQ> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Iconsax.arrow_left,
+            color: Theme.of(context).colorScheme.onBackground,
+          ),
+        ),
         title: const Text("FAQ"),
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,

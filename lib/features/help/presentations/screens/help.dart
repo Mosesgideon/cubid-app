@@ -29,13 +29,25 @@ class _UserHelpState extends State<UserHelp> {
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  "Customer Support and help",
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.onBackground,
-                  ),
+                child: Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Iconsax.arrow_left,
+                          color: Theme.of(context).colorScheme.onBackground,
+                        )),
+                    Text(
+                      "Customer Support and help",
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const Padding(
@@ -84,13 +96,13 @@ class _UserHelpState extends State<UserHelp> {
               ),
               SettingsItems(
                 voidCallback: () {},
-                text: "02-9802738",
+                text: "+2347042973460",
                 icon: Iconsax.call,
                 subtitle: 'phone call',
               ),
               SettingsItems(
                 voidCallback: () {},
-                text: "chattApp@email.com",
+                text: "mosesgideon072@gmail.com.com",
                 icon: Iconsax.message,
                 subtitle: 'send us an email',
               ),

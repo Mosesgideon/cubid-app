@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:social_media/app_constants/theme/app_colors.dart';
-import 'package:social_media/features/chats_tab/presentations/widgets/search_animated_container.dart';
-import 'package:social_media/features/chats_tab/presentations/widgets/styles.dart';
+import 'package:social_media/features/chat_page/presentation/screens/widgets/search_animated_container.dart';
+import 'package:social_media/features/chat_page/presentation/screens/widgets/styles.dart';
 
 class ChatWidgets {
   bool isdark = false;

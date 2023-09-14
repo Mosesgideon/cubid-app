@@ -4,9 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:social_media/features/chat_page/presentation/screens/chat_list/chat_page.dart';
-import 'package:social_media/features/chats_tab/presentations/widgets/styles.dart';
+import 'package:social_media/features/chat_page/presentation/screens/widgets/styles.dart';
 import 'package:social_media/features/menu_tab/presentations/screens/privat_userpost.dart';
 import 'package:social_media/features/menu_tab/presentations/widgets/menu_widget.dart';
+import 'package:social_media/features/notifications/presentations/screens/notifications.dart';
 
 class UserMenu extends StatefulWidget {
   const UserMenu({
@@ -68,24 +69,24 @@ class _UserMenuState extends State<UserMenu> {
             onPressed: () {},
           ),
           StreamBuilder<QuerySnapshot<dynamic>>(
-            stream: FirebaseFirestore.instance.collection('chatroom').snapshots(),
+            stream: FirebaseFirestore.instance.collection('notifications').snapshots(),
             builder: ( context, snapshot) =>Stack(clipBehavior: Clip.none,
                 children: [
                   IconButton(
                     splashRadius: 20,
-                    icon: const Icon(Iconsax.message, size: 20),
+                    icon: const Icon(Iconsax.notification, size: 20),
                     onPressed: () {
                       Navigator.of(context)
-                          .push(CupertinoPageRoute(builder: (index) => Chats()));
+                          .push(CupertinoPageRoute(builder: (index) =>const NotificationsScreen()));
                     },
                   ),
                    Positioned(
-                      bottom: 28,
-                      left: 27,
+                      bottom: 35,
+                      left: 25,
                       child: CircleAvatar(
                         radius: 4,
                         backgroundColor: Colors.red,
-                        child: Center(child: Text(snapshot.data!.size.toString(),style: const TextStyle(color: Colors.white,fontSize: 6),)),
+                        child: Center(child: Text(snapshot.data?.size.toString()??"0",style: const TextStyle(color: Colors.white,fontSize: 6),)),
                       )),
                 ]),
           ),

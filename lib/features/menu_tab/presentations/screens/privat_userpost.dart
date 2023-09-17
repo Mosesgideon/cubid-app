@@ -23,11 +23,11 @@ class _UserPostState extends State<UserPost> {
           child: Column(
             children: [
               Container(
-                height: 50,
-                width: 50,
+                height: 100,
+                width: 70,
                 decoration: BoxDecoration(
                   color: Colors.grey,
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Icon(Iconsax.add,color: Colors.white,size: 25,)
               ),

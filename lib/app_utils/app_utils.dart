@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AppUtils {
   static void showCustomModalBottomSheet(BuildContext context, Widget child,
@@ -41,18 +42,8 @@ class AppUtils {
       return null;
     }
   }
-  static  Future<List<PlatformFile>?> onVideo() async {
-    try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-          type: FileType.video,
-       allowMultiple: false
-      );
-      if (result != null && result.files.isNotEmpty) {
-        return result.files;
-      } else {}
-    } catch (e) {
-      print('Error picking video: $e');
-      return null;
-    }
-  }
+
 }
+
+
+

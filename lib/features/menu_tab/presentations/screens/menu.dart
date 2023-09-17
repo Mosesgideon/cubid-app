@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:social_media/features/chat_page/presentation/screens/chat_list/chat_page.dart';
 import 'package:social_media/features/chat_page/presentation/screens/widgets/styles.dart';
 import 'package:social_media/features/menu_tab/presentations/screens/privat_userpost.dart';
@@ -105,7 +106,7 @@ class _UserMenuState extends State<UserMenu> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8),
                   child: SizedBox(
-                    height: 100,
+                    height: 150,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -121,14 +122,10 @@ class _UserMenuState extends State<UserMenu> {
                                   height: 10,
                                   width: 10,
                                   child: Center(
-                                    child: Text(
-                                      "updating",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onBackground),
-                                    ),
+                                    child: Shimmer(child: Container(
+                                      height: 80,
+                                      width: MediaQuery.of(context).size.width,
+                                    ),)
                                   ),
                                 );
                               }
@@ -141,16 +138,16 @@ class _UserMenuState extends State<UserMenu> {
                                           widget: Stack(
                                             clipBehavior: Clip.none,
                                             children: [
-                                              // const Positioned(
-                                              //     bottom: 35,
-                                              //     left: 35,
-                                              //     child: CircleAvatar(radius: 5,)),
+                                              const Positioned(
+                                                  bottom: 8,
+                                                  right: 5,
+                                                  child: CircleAvatar(radius: 5,)),
                                               Container(
-                                                  height: 50,
-                                                  width: 50,
+                                                  height: 100,
+                                                  width: 70,
                                                   decoration: BoxDecoration(
                                                       borderRadius:
-                                                      BorderRadius.circular(25),
+                                                      BorderRadius.circular(10),
                                                       image: DecorationImage(
                                                           fit: BoxFit.cover,
                                                           image: NetworkImage(

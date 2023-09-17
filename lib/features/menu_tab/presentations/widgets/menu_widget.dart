@@ -106,130 +106,153 @@ class _MenuWidgetState extends State<MenuWidget> {
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5),
-                child: Container(
-                  margin: const EdgeInsets.only(bottom: 5.0),
-                  height: 450,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onBackground
-                          .withOpacity(.04)),
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 60),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15.0),
-                          child: InkWell(
-                            onTap: () =>
-                                Navigator.of(context).push(CupertinoPageRoute(
-                                    builder: (context) => PostView(
-                                          userImage: snapshot.data?.docs[index]
-                                              .get('images'),
-                                          username: snapshot.data?.docs[index]
-                                              .get('posterName'),
-                                        ))),
-                            child: Hero(
-                              tag: "images",
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: NetworkImage(snapshot
-                                            .data?.docs[index]
-                                            .get('images')))),
+                    const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 5.0),
+                      height: 500,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      child: Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 70,bottom: 10),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15.0),
+                              child: InkWell(
+                                onTap: () => Navigator.of(context)
+                                    .push(CupertinoPageRoute(
+                                        builder: (context) => PostView(
+                                              userImage: snapshot
+                                                  .data?.docs[index]
+                                                  .get('images'),
+                                              username: snapshot
+                                                  .data?.docs[index]
+                                                  .get('posterName'),
+                                            ))),
+                                child: Hero(
+                                  tag: "images",
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            fit: BoxFit.fill,
+                                            image: NetworkImage(snapshot
+                                                .data?.docs[index]
+                                                .get('images')))),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Stack(
-                          children: [
-                            Column(
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Stack(
                               children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                Column(
                                   children: [
                                     Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        InkWell(
-                                          onTap: () {
-                                            Navigator.of(context)
-                                                .push(CupertinoPageRoute(
-                                                    builder: (ctx) => ViewImage(
-                                                          image: snapshot
-                                                              .data?.docs[index]
-                                                              .get('userImage'),
-                                                          name: snapshot
-                                                              .data?.docs[index]
-                                                              .get(
-                                                                  'posterName'),
-                                                        )));
-                                          },
-                                          child: Hero(
-                                            tag: 'userImage',
-                                            child: CircleAvatar(
-                                              backgroundColor:
-                                                  Theme.of(context).cardColor,
-                                              backgroundImage: NetworkImage(
-                                                  snapshot.data?.docs[index]
-                                                      .get('userImage')),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10.0),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                        Row(
                                           children: [
                                             InkWell(
-                                              child: Text(
-                                                snapshot.data?.docs[index]
-                                                    .get('posterName'),
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onBackground),
-                                              ),
-                                            ),
-                                            Text(
-                                              timeAgo.format(
-                                                DateTime
-                                                    .fromMillisecondsSinceEpoch(
-                                                  snapshot.data?.docs[index]
-                                                      .get('time'),
+                                              onTap: () {
+                                                Navigator.of(context).push(
+                                                    CupertinoPageRoute(
+                                                        builder: (ctx) =>
+                                                            ViewImage(
+                                                              image: snapshot
+                                                                  .data
+                                                                  ?.docs[index]
+                                                                  .get(
+                                                                      'userImage'),
+                                                              name: snapshot
+                                                                  .data
+                                                                  ?.docs[index]
+                                                                  .get(
+                                                                      'posterName'),
+                                                            )));
+                                              },
+                                              child: Hero(
+                                                tag: 'userImage',
+                                                child: Container(
+                                                  height: 60,
+                                                  width: 50,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.grey
+                                                          .withOpacity(0.2),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      image: DecorationImage(
+                                                      fit: BoxFit.cover,
+                                                        image: NetworkImage(
+                                                            snapshot.data
+                                                                ?.docs[index]
+                                                                .get(
+                                                                    'userImage'),),
+                                                      )),
                                                 ),
                                               ),
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onBackground),
                                             ),
+                                            const SizedBox(width: 10.0),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                InkWell(
+                                                  child: Text(
+                                                    snapshot.data?.docs[index]
+                                                        .get('posterName'),
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .onBackground),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  timeAgo.format(
+                                                    DateTime
+                                                        .fromMillisecondsSinceEpoch(
+                                                      snapshot.data?.docs[index]
+                                                          .get('time'),
+                                                    ),
+                                                  ),
+                                                  style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .onBackground),
+                                                ),
+                                              ],
+                                            )
                                           ],
-                                        )
+                                        ),
+                                        IconButton(
+                                            onPressed: () {
+
+                                            },
+                                            icon: Icon(Icons.more_horiz,
+                                                size: 24,
+                                                color: Theme.of(context).colorScheme.onBackground)),
                                       ],
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                            Positioned(
-                                bottom: 0,
-                                child: MenuBottomItem(
-                                  postId: snapshot.data!.docs[index].id,
-                                ))
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    MenuBottomItem(postId: snapshot.data!.docs[index].id),
+                    Divider(),
+                  ],
                 ),
               );
             },
@@ -239,8 +262,6 @@ class _MenuWidgetState extends State<MenuWidget> {
     );
   }
 }
-
-
 
 class ViewImage extends StatefulWidget {
   final String image;
@@ -275,10 +296,11 @@ class _ViewImageState extends State<ViewImage> {
       ),
       body: Center(
         child: SizedBox(
-          height: 400,
+
           child: Hero(
               tag: 1,
               child: Container(
+                height: 300,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                       image: NetworkImage(widget.image), fit: BoxFit.cover),

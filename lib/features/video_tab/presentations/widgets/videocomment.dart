@@ -1,17 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-class Comments extends StatefulWidget {
-  final String postId;
-
-  const Comments({super.key, required this.postId});
+class VideoComment extends StatefulWidget {
+  final String vidoeID;
+  const VideoComment({super.key, required this.vidoeID});
 
   @override
-  State<Comments> createState() => _CommentsState();
+  State<VideoComment> createState() => _VideoCommentState();
 }
 
-class _CommentsState extends State<Comments> {
+class _VideoCommentState extends State<VideoComment> {
   final fire = FirebaseFirestore.instance;
   final auth = FirebaseAuth.instance;
 
@@ -26,8 +24,8 @@ class _CommentsState extends State<Comments> {
           Expanded(
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance
-                    .collection('comments')
-                    .where('postId', isEqualTo: widget.postId)
+                    .collection('video_comments')
+                    .where('vidoeID', isEqualTo: widget.vidoeID)
                     .snapshots(),
                 builder:
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -50,7 +48,7 @@ class _CommentsState extends State<Comments> {
                             CircleAvatar(
                               radius: 20,
                               backgroundColor:
-                                  Theme.of(context).colorScheme.onBackground,
+                              Theme.of(context).colorScheme.onBackground,
                               backgroundImage: NetworkImage(snapshot.data!.docs[index]
                                   .get('userImage')),
                             ),
@@ -77,7 +75,7 @@ class _CommentsState extends State<Comments> {
                                   ),
                                   Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                           snapshot.data!.docs[index]
@@ -119,7 +117,7 @@ class _CommentsState extends State<Comments> {
                     suffixIcon: IconButton(
                       onPressed: () {
                         if (_controller.text.isNotEmpty) {
-                          sendComments(widget.postId, _controller.text,
+                          sendComments(widget.vidoeID, _controller.text,
                               auth.currentUser!.uid,auth.currentUser!.uid);
                           _controller.clear();
                         }
@@ -139,7 +137,7 @@ class _CommentsState extends State<Comments> {
                     prefixIconColor: Colors.grey,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                     hintStyle:
-                        TextStyle(color: Colors.grey.shade500, fontSize: 13)),
+                    TextStyle(color: Colors.grey.shade500, fontSize: 13)),
               )),
         ],
       ),
@@ -150,21 +148,21 @@ class _CommentsState extends State<Comments> {
     //send message
     if (_controller.text.isNotEmpty) {
       await sendComments(
-          widget.postId, _controller.text, auth.currentUser!.uid,auth.currentUser!.uid);
+          widget.vidoeID, _controller.text, auth.currentUser!.uid,auth.currentUser!.uid);
       _controller.clear();
     }
   }
 
-  Future sendComments(String videorID, String comment, String user,String posterId) async {
+  Future sendComments(String vidoeID, String comment, String user,String posterId) async {
     String uid = FirebaseAuth.instance.currentUser!.uid;
     CollectionReference comments =
-        FirebaseFirestore.instance.collection("comments");
+    FirebaseFirestore.instance.collection("video_comments");
     DocumentSnapshot<Map<String, dynamic>> users =
-        await FirebaseFirestore.instance.collection("users").doc(uid).get();
+    await FirebaseFirestore.instance.collection("users").doc(uid).get();
     return comments.add({
       "posterId":posterId,
       'comment': comment,
-      "videorID": videorID,
+      "vidoeID": vidoeID,
       "posterName": users.data()?['name'],
       "userImage": users.data()?['image'],
       "time": DateTime.now().millisecondsSinceEpoch,

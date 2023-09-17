@@ -281,17 +281,3 @@ class _PostWidgetState extends State<PostWidget> {
         .catchError((error) => print("Failed to add report: $error"));
   }
 }
-
-class UploadVideo extends StatefulWidget {
-  const UploadVideo({Key? key}) : super(key: key);
-
-  @override
-  State<UploadVideo> createState() => _UploadVideoState();
-}
-
-class _UploadVideoState extends State<UploadVideo> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}

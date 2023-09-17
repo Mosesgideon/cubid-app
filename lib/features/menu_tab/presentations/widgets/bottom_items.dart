@@ -7,6 +7,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:social_media/app_utils/app_utils.dart';
 import 'package:social_media/features/menu_tab/presentations/widgets/comment_widget.dart';
 
+
 class MenuBottomItem extends StatefulWidget {
   const MenuBottomItem({
     Key? key,
@@ -52,13 +53,12 @@ class _MenuBottomItemState extends State<MenuBottomItem> {
           filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            color: Colors.grey.withOpacity(0.2),
+
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 StreamBuilder(
                   stream: userLikedPost(widget.postId),
-                  // stream: heartIcon(widget.snapshot.get('id')),
                   builder: (BuildContext context, snapshot) {
                     int likes = 0;
 
@@ -69,19 +69,8 @@ class _MenuBottomItemState extends State<MenuBottomItem> {
 
                     return Row(
                       children: [
-                        IconButton(
-                          icon: likes == 0
-                              ? Icon(Icons.thumb_up_off_alt,
-                                  size: 20,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground)
-                              : Icon(Icons.thumb_up,
-                                  size: 20,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground),
-                          onPressed: () {
+                        InkWell(
+                          onTap: (){
                             if (likes == 0) {
                               likeUserPost(widget.postId);
                               log('liked');
@@ -92,6 +81,13 @@ class _MenuBottomItemState extends State<MenuBottomItem> {
 
                             log('message');
                           },
+                          child:  likes == 0?Icon(Icons.thumb_up_off_alt,
+                          size: 20,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onBackground):const Icon(Icons.thumb_up,
+                              size: 20,
+                              color: Colors.blue),
                         ),
                         const SizedBox(width: 5.0),
                         StreamBuilder(
@@ -131,7 +127,7 @@ class _MenuBottomItemState extends State<MenuBottomItem> {
                                   color: Theme.of(context)
                                       .colorScheme
                                       .onBackground)
-                              : const Icon(Iconsax.heart5,
+                              : const Icon(Iconsax.heart_add,
                                   size: 20, color: Colors.red),
                         ),
                         const SizedBox(width: 5.0),
@@ -145,30 +141,16 @@ class _MenuBottomItemState extends State<MenuBottomItem> {
                     );
                   },
                 ),
-                StreamBuilder(
-                    stream: null,
-                    builder: (context, snapshot) {
-                      return Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              AppUtils.showCustomModalBottomSheet(context, Comments());
-                                  },
-                            child: Icon(Iconsax.message_2,
-                                size: 20,
-                                color:
-                                    Theme.of(context).colorScheme.onBackground),
-                          ),
-                        ],
-                      );
-                    }),
-                IconButton(
-                    onPressed: () {
-                      sharePost();
-                    },
-                    icon: Icon(Icons.share,
-                        size: 24,
-                        color: Theme.of(context).colorScheme.onBackground)),
+                InkWell(
+                  onTap: () {
+                    AppUtils.showCustomModalBottomSheet(context,  Comments(postId: widget.postId,));
+                  },
+                  child: Icon(Iconsax.message,
+                      size: 20,
+                      color:
+                      Theme.of(context).colorScheme.onBackground),
+                ),
+
               ],
             ),
           ),
@@ -187,6 +169,7 @@ class _MenuBottomItemState extends State<MenuBottomItem> {
 
     return document;
   }
+
   Stream<QuerySnapshot<Map<String, dynamic>>> userLikedPost(String postId) {
     User? currentUser = FirebaseAuth.instance.currentUser;
     final document = FirebaseFirestore.instance
@@ -197,6 +180,7 @@ class _MenuBottomItemState extends State<MenuBottomItem> {
 
     return document;
   }
+
   void likeUserPost(String postId) {
     User? currentUser = FirebaseAuth.instance.currentUser;
     FirebaseFirestore.instance.collection('likes').doc().set({
@@ -204,6 +188,7 @@ class _MenuBottomItemState extends State<MenuBottomItem> {
       'liker': currentUser!.uid,
     });
   }
+
   void unLikeUserPost(String postId) async {
     User? currentUser = FirebaseAuth.instance.currentUser;
 
@@ -219,7 +204,18 @@ class _MenuBottomItemState extends State<MenuBottomItem> {
       }
     }
   }
-  void sharePost() {}
+
+  Future<void> shareFile() async {
+    // List<dynamic> docs = await DocumentsPicker.pickDocuments;
+    // if (docs == null || docs.isEmpty) return null;
+    //
+    // await FlutterShare.shareFile(
+    //   title: 'Example share',
+    //   text: 'Example share text',
+    //   filePath: docs[0] as String,
+    // );
+  }
+
   Stream<QuerySnapshot<Map<String, dynamic>>> heartIconLikes(String postID) {
     User? currentUser = FirebaseAuth.instance.currentUser;
 
@@ -268,6 +264,22 @@ class _MenuBottomItemState extends State<MenuBottomItem> {
     }
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> userPostComment(String postId) {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    final document = FirebaseFirestore.instance
+        .collection('comments')
+        .where('postId', isEqualTo: postId)
+        .where('commenter', isEqualTo: currentUser?.uid)
+        .snapshots();
+    return document;
+  }
 
+  void commentPost(String postId) {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    FirebaseFirestore.instance.collection('comments').doc().set({
+      'postId': postId,
+      'commenter': currentUser!.uid,
+    });
+  }
 
 }

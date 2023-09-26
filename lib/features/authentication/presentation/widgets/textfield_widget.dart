@@ -114,6 +114,7 @@ class _OutlinedFormFieldState extends State<OutlinedFormField> {
   Widget build(BuildContext context) {
     return SizedBox(
       child: TextFormField(
+
         controller: widget.controller,
         validator: widget.validator,
         maxLines: widget.maxLine ?? 1,

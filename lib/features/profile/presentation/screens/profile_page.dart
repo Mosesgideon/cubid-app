@@ -39,7 +39,9 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    log( MediaQuery.viewInsetsOf(context).bottom.toString());
     return Scaffold(
+      resizeToAvoidBottomInset: false,
         body: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection("users")
@@ -177,93 +179,100 @@ class _ProfileState extends State<Profile> {
                                 AppUtils.showCustomModalBottomSheet(
                                     context,
                                     bgColor: Colors.transparent,
-                                    Container(
-                                      padding: const EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
-                                          color: Theme.of(context).cardColor,
-                                          borderRadius: const BorderRadius.only(
-                                              topRight: Radius.circular(20),
-                                              topLeft: Radius.circular(20))),
-                                      child: Form(
-                                        key: _formkey,
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text("Enter new number",
-                                                style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onBackground,
-                                                )),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            OutlinedFormField(
-                                              controller: _controller,
-                                              hint: 'number',
-                                              preffix:
+                                    Material(
+                                      child: Container(
+                                        padding: const EdgeInsets.all(20),
+                                        decoration: BoxDecoration(
+                                            color: Theme.of(context).cardColor,
+                                            borderRadius: const BorderRadius.only(
+                                                topRight: Radius.circular(20),
+                                                topLeft: Radius.circular(20))),
+                                        child: Form(
+                                          key: _formkey,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text("Enter new number",
+                                                  style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .onBackground,
+                                                  )),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Padding(
+                                                padding:EdgeInsets.only(bottom:  MediaQuery.viewInsetsOf(context).bottom),
+                                                child: OutlinedFormField(
+                                                  controller: _controller,
+                                                  hint: 'number',
+                                                  preffix:
                                                   const Icon(Iconsax.call_add),
-                                            ),
-                                            const SizedBox(
-                                              height: 20,
-                                            ),
-                                            BlocConsumer<AuthBloc, AuthState>(
-                                              bloc: authBloc,
-                                              listener: (context, state) {
-                                                if (authBloc
-                                                    is AuthLoadingState) {
-                                                  log("loading");
-                                                  setState(() {
-                                                    isloading = true;
-                                                  });
-                                                } else if (authBloc
-                                                        is AuthFailureState ||
-                                                    state
-                                                        is VerificationFailedState ||
-                                                    state is SmsFailedState) {
-                                                  log("error");
-                                                  setState(() {
-                                                    isloading = false;
-                                                  });
-                                                }
-                                                if (state is OtpSentState) {
-                                                  setState(() {
-                                                    isloading = false;
-                                                  });
-                                                  Navigator.pop(context);
-                                                  AppUtils
-                                                      .showCustomModalBottomSheet(
-                                                          context,
-                                                          Bottomsheet(
-                                                            verificationId: state
-                                                                .verificationId,
-                                                            resendToken: state
-                                                                .resendToken,
-                                                            number:
-                                                                state.number,
-                                                          ));
-                                                }
-                                              },
-                                              builder: (context, state) {
-                                                return CustomButton(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        vertical: 20),
-                                                    child: isloading
-                                                        ? const SizedBox(
-                                                            height: 20,
-                                                            width: 20,
-                                                            child:
-                                                                CircularProgressIndicator(),
-                                                          )
-                                                        : const Text(
-                                                            "Get Code"),
-                                                    onPressed: () {
-                                                      phoneValidate();
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 20,
+                                              ),
+                                              BlocConsumer<AuthBloc, AuthState>(
+                                                bloc: authBloc,
+                                                listener: (context, state) {
+                                                  if (authBloc
+                                                      is AuthLoadingState) {
+                                                    log("loading");
+                                                    setState(() {
+                                                      isloading = true;
                                                     });
-                                              },
-                                            )
-                                          ],
+                                                  } else if (authBloc
+                                                          is AuthFailureState ||
+                                                      state
+                                                          is VerificationFailedState ||
+                                                      state is SmsFailedState) {
+                                                    log("error");
+                                                    setState(() {
+                                                      isloading = false;
+                                                    });
+                                                  }
+                                                  if (state is OtpSentState) {
+                                                    setState(() {
+                                                      isloading = false;
+                                                    });
+                                                    Navigator.pop(context);
+                                                    AppUtils
+                                                        .showCustomModalBottomSheet(
+
+                                                            context,
+                                                            Bottomsheet(
+
+                                                              verificationId: state
+                                                                  .verificationId,
+                                                              resendToken: state
+                                                                  .resendToken,
+                                                              number:
+                                                                  state.number,
+                                                            ));
+                                                  }
+                                                },
+                                                builder: (context, state) {
+                                                  return CustomButton(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          vertical: 20),
+                                                      child: isloading
+                                                          ? const SizedBox(
+                                                              height: 20,
+                                                              width: 20,
+                                                              child:
+                                                                  CircularProgressIndicator(),
+                                                            )
+                                                          : const Text(
+                                                              "Get Code"),
+                                                      onPressed: () {
+                                                        phoneValidate();
+                                                      });
+                                                },
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ));

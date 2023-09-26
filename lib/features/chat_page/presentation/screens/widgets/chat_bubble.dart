@@ -14,28 +14,32 @@ class ChatBubble extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 3),
           decoration:  BoxDecoration(
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   bottomRight: Radius.circular(10),
                   bottomLeft: Radius.circular(10)),
               color:Theme.of(context).colorScheme.primary),
-          child: Text(
-            message,
-            style: const TextStyle(color: textcolor,fontSize: 15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                message,
+                style: const TextStyle(color: textcolor,fontSize: 15),
+              ),
+              Text(
+                time,
+                style: const TextStyle(color: Colors.grey,fontSize: 6,fontWeight: FontWeight.w600),
+              ),
+            ],
           ),
         ),
-        Text(
-          time,
-          style: const TextStyle(color: Colors.grey,fontSize: 10),
-        ),
+
       ],
     );
   }
 }
-
-
 
 
 
@@ -51,7 +55,7 @@ class ChatBubbleNotUser extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 3),
           decoration:  BoxDecoration(
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(10),
@@ -59,17 +63,23 @@ class ChatBubbleNotUser extends StatelessWidget {
                   bottomLeft: Radius.circular(10)),
 
               color: Theme.of(context).colorScheme.onBackground),
-          child: Text(
-            message,
-            style: const TextStyle(color: textcolor,fontSize: 15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                message,
+                style: const TextStyle(color: textcolor,fontSize: 15),
 
+              ),
+              Text(
+                time,
+                style: const TextStyle(color: Colors.grey,fontSize: 6,fontWeight: FontWeight.w600),
+
+              ),
+            ],
           ),
         ),
-        Text(
-          time,
-          style: const TextStyle(color: Colors.grey,fontSize: 10),
 
-        ),
       ],
     );
   }

@@ -21,14 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
   static List<StatefulWidget> pages = [
     const UserMenu(),
     Chats(),
-   const Videos(),
+    const Videos(),
     const SettingsScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           _switchTap(index);
@@ -38,23 +37,22 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedItemColor: Theme.of(context).colorScheme.primary,
         elevation: 0,
         backgroundColor: Colors.grey,
-
-        items:  const [
+        // fixedColor: Theme.of(context).colorScheme.onBackground,
+        items: const [
           BottomNavigationBarItem(icon: Icon(Iconsax.home), label: 'Menu'),
-            BottomNavigationBarItem(icon: Stack(clipBehavior: Clip.none,
-                children: [
-                  Icon(Iconsax.message, size: 25),
-                  Positioned(
-                      bottom: 17,
-                      left: 18,
-                      child: CircleAvatar(
-                        radius: 5,
-                        backgroundColor: Colors.red,
-                      )),
-                ]),
-           label: 'Chats'),
           BottomNavigationBarItem(
-              icon: Icon(Iconsax.video), label: 'Videos'),
+              icon: Stack(clipBehavior: Clip.none, children: [
+                Icon(Iconsax.message, size: 25),
+                Positioned(
+                    bottom: 17,
+                    left: 18,
+                    child: CircleAvatar(
+                      radius: 5,
+                      backgroundColor: Colors.red,
+                    )),
+              ]),
+              label: 'Chats'),
+          BottomNavigationBarItem(icon: Icon(Iconsax.video), label: 'Videos'),
           BottomNavigationBarItem(
               icon: Icon(Iconsax.setting_2), label: 'Setting')
         ],

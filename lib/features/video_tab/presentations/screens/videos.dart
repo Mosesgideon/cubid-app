@@ -141,11 +141,11 @@ class _VideosState extends State<Videos> {
                                                     child: likes == 0
                                                         ? const Icon(
                                                             Iconsax.like_1,
-                                                            color: Colors.black,
+                                                            color: Colors.blue,
                                                           )
                                                         : const Icon(
                                                             Iconsax.like_15,
-                                                            color: Colors.red,
+                                                            color: Colors.blue,
                                                           ),
                                                   ),
                                                   Text(snapshot
@@ -225,7 +225,7 @@ class _VideosState extends State<Videos> {
                                                 fontWeight: FontWeight.w600),
                                           ),
                                           Text(
-                                            'Posters Username',
+                                            'videoID',
                                             style: TextStyle(
                                                 fontSize: 12,
                                                 color: Colors.black
@@ -421,22 +421,25 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        VideoPlayer(_controller),
-        Center(
-          child: FloatingActionButton(
-            backgroundColor: Theme.of(context).cardColor,
-            onPressed: () {
-              setState(() {
-                _controller.value.isPlaying
-                    ? _controller.pause()
-                    : _controller.play();
-              });
-            },
-            child: Icon(
-              _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-            ),
-          ),
-        )
+        InkWell(
+          onTap: (){
+            setState(() {
+              _controller.value.isPlaying
+                  ? _controller.pause()
+                  : _controller.play();
+            });
+          },
+            child: VideoPlayer(_controller,)),
+        // Center(
+        //   child: FloatingActionButton(
+        //     backgroundColor: Theme.of(context).cardColor,
+        //     onPressed: () {
+        //     },
+        //     child: Icon(
+        //       _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+        //     ),
+        //   ),
+        // )
       ],
     );
   }

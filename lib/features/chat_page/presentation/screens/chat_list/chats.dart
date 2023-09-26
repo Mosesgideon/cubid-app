@@ -34,8 +34,12 @@ class _UserChatsState extends State<UserChats> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of(context).push(
-                    CupertinoPageRoute(builder: (index) => VideoCallScreen(callID:  widget.recieveruid ,)));
+                Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (index) => VideoCallScreen(
+                          callID: widget.recieveruid,
+                          userID: widget.recieveruid,
+                          userName: widget.recieveremail,
+                        )));
               },
               icon: const Icon(
                 Iconsax.video5,
@@ -43,8 +47,12 @@ class _UserChatsState extends State<UserChats> {
               )),
           IconButton(
               onPressed: () {
-                Navigator.of(context).push(
-                    CupertinoPageRoute(builder: (index) => const AudioCallScreen()));
+                Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (index) => AudioCallScreen(
+                          callID: widget.recieveruid,
+                          username: widget.recieveremail,
+                      userId: widget.recieveruid,
+                        )));
               },
               icon: const Icon(
                 Iconsax.call5,

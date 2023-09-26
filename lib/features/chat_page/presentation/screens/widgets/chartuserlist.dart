@@ -112,7 +112,7 @@ class _FriendsChatState extends State<FriendsChat> {
         ? Alignment.centerRight
         : Alignment.centerLeft;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(2.0),
       child: Container(
         alignment: aligment,
         child: Column(
@@ -120,7 +120,8 @@ class _FriendsChatState extends State<FriendsChat> {
             // Text(snapshot.data().toString()),
 
             data['senderId'] == auth.currentUser!.uid
-                ? ChatBubble(message: data['message'], time: DateFormat('hh:mm a').format(DateTime.now()),)
+                ? ChatBubble(message: data['message'], time:
+            DateTime.now().millisecondsSinceEpoch.toString(),)
                 : ChatBubbleNotUser(message: data['message'], time:DateFormat('hh:mm a').format(DateTime.now()),),
                  // Text(data['date']),
           ],

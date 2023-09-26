@@ -19,8 +19,8 @@ class AppUtils {
               topRight: Radius.circular(20), topLeft: Radius.circular(20))),
       enableDrag: true,
 
-      constraints:
-          BoxConstraints(maxHeight: getDeviceSize(context).height * 0.8),
+      // constraints:
+      //     BoxConstraints(maxHeight: getDeviceSize(context).height * 0.8),
       builder: (context) => child,
     );
   }

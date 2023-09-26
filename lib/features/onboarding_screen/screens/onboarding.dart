@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:social_media/app_constants/strings/appStrings.dart';
 import 'package:social_media/app_constants/theme/app_colors.dart';
-import 'package:social_media/features/authentication/presentation/screens/signup_screen.dart';
+import 'package:social_media/features/authentication/presentation/screens/login_screen.dart';
 import 'package:social_media/features/authentication/presentation/widgets/custombutton_widgets.dart';
 import 'package:social_media/features/onboarding_screen/widgets/onboarding__item.dart';
 
@@ -75,7 +75,7 @@ class _IntroScreenState extends State<IntroScreen> {
                         isExpanded: false,
                         onPressed: () {
                           Navigator.of(context).pushReplacement(
-                              CupertinoPageRoute(builder: (index) => SignUp()));
+                              CupertinoPageRoute(builder: (index) => LoginScreen()));
 
                           // showModalBottomSheet(
                           //   backgroundColor: Colors.transparent,
